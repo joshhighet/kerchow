@@ -1,0 +1,9 @@
+#!/bin/zsh
+# search for a string in public source repositories with grep.app
+
+if [ -z "$1" ]; then
+    echo "usage: grepapp <term>"
+    exit 1
+fi
+
+curl -s "https://grep.app/api/search?q=${1}" | jq

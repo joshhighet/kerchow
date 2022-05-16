@@ -1,0 +1,4 @@
+#!/bin/zsh
+# show current dns servers
+
+grep nameserver <(scutil --dns)

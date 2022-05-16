@@ -1,0 +1,13 @@
+#!/bin/zsh
+# fix a broken airplay2 session
+
+# core_audio_pid=$(ps -ax | grep 'coreaudiod' | grep 'sbin' |awk '{print $1}')
+core_audio_pid=$(pgrep coreaudio)
+
+if [ -z "${core_audio_pid}" ]; then
+  echo "coreaudiod not running"
+  exit 1
+else
+  echo "killing coreaudiod pid: ${core_audio_pid}"
+  sudo kill -9 ${core_audio_pid}
+fi

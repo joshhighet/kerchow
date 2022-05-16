@@ -1,0 +1,56 @@
+#!/bin/zsh
+# multi-host ssh controller
+
+clear
+autoload colors; colors
+error() { echo "${fg[red]}$@${reset_color}" >&2 }
+warn() { echo "${fg[yellow]}$@${reset_color}" >&2 }
+good() { echo "${fg[green]}$@${reset_color}" >&2 }
+blue() { echo "${fg[blue]}$@${reset_color}" >&2 }
+
+banner=`echo \
+'CiBfICAgICBfICAgICAgIF8gICAgICAgICAgICAgICAgXwp8IHxfXyAoXykgX18g\
+X3wgfF9fICBfIF9fICAgX19ffCB8Xwp8ICdfIFx8IHwvIF9gIHwgJ18gXHwgJ18gX\
+CAvIF8gXCBfX3wKfCB8IHwgfCB8IChffCB8IHwgfCB8IHwgfCB8ICBfXy8gfF8KfF\
+98IHxffF98XF9fLCB8X3wgfF98X3wgfF98XF9fX3xcX198CiAgICAgICAgIHxfX18\
+vCSAgICAgIAkgIHNoZWxsanVtcAoK' \
+| base64 --decode`
+echo "${fg[green]}$banner${reset_color}"
+echo
+
+hosts=(
+    all
+    gbon.one
+    pihole.highnet
+    homekit.highnet
+    moonrock.highnet
+    telemetry.highnet
+    controltower.highnet
+)
+
+select host in "${hosts[@]}"; do
+    if [ -n "${host}" ]; then
+        break
+    fi
+done
+
+if [ "${host}" = "all" ]
+    then
+        if [ -z "${1}" ]
+        then
+            vared -p 'command to run: ' -c usrcommand
+        else
+            usrcommand="${1}"
+        fi
+        echo "${usrcommand}" | cowsay | lolcat
+        for host in "${hosts[@]}"; do
+            if [ "${host}" = "all" ]
+            then
+                continue
+            fi
+            blue "${host}"
+            ssh -q -t -o ConnectTimeout=2 "${host}" "${usrcommand}"
+            done
+    else
+        ssh -q -t -o ConnectTimeout=2 "${host}" "${1}"
+fi

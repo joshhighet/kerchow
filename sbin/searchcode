@@ -1,0 +1,10 @@
+#!/bin/zsh
+# search for a string in public source repositories with searchcode
+
+if [ -z "$1" ]; then
+    echo "usage: searchcode <term>"
+    exit 1
+fi
+
+curl --silent --header 'Accept: application/json' \
+https://searchcode.com/api/codesearch_I/?q=${1} | jq

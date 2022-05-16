@@ -1,0 +1,10 @@
+#!/bin/zsh
+# show sha2 checksums for all files within a directory (full depth)
+
+find . -type f > dir
+sort dir > dir_sort
+awk '{print "shasum -a 256 \""$0}' dir_sort > pre_exec
+awk '{print $0"\""}' pre_exec > dir_sha
+chmod +x dir_sha
+./dir_sha
+rm dir dir_sort dir_sha pre_exec

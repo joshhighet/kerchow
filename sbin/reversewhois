@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+# perform reverse whois lookup using the viewdns.info api
+
+import re
+import sys
+import requests
+
+if len(sys.argv) != 2:
+    print("usage: reversewhois <target>")
+    sys.exit(1)
+
+useragt='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36'
+
+for value in re.findall(r'<tr><td>([^<]+)</td>',requests.get("https://viewdns.info/reversewhois/?q="+'+'.join(sys.argv[1:]),headers={'User-Agent':useragt}).text)[1:]:
+  print(value)

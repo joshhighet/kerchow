@@ -1,0 +1,9 @@
+#!/bin/zsh
+# lookup assets with hackertarget for a given domain name
+
+if [ -z "$1" ]; then
+    echo "usage: hackertarget <domain>"
+    exit 1
+fi
+
+curl --silent "https://api.hackertarget.com/hostsearch/?q=${1}" | grep -o "\w.*${1}"

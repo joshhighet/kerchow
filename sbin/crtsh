@@ -1,0 +1,9 @@
+#!/bin/zsh
+# use the crt.sh api to lookup a domain for certificates
+
+if [ -z "$1" ]; then
+    echo "usage: crtsh <domain>"
+    exit 1
+fi
+
+curl --silent "https://crt.sh?q=${1}&output=json" | jq '.[].name_value' -r | sort -u

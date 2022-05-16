@@ -1,0 +1,10 @@
+[Unit]
+Description=bettercap
+
+[Service]
+User=root
+ExecStart=sudo bettercap -caplet https-ui
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

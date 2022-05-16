@@ -1,0 +1,20 @@
+#!/bin/zsh
+# show the last domain blocked by pihole
+
+if [[ -z $(dig +short pi.hole) ]]; then
+  echo "error: could not resolve pi.hole"
+  exit 1
+fi
+
+if [ ! -f ~/.dnsauth ]; then
+  echo "error: pihole api access key missing from ~/.dnsauth"
+  exit 1
+else    
+  authkey=$(cat ~/.dnsauth)
+fi
+
+pihole_apibase="http://pi.hole/admin/api.php"
+
+curl -s "${pihole_apibase}?recentBlocked&auth=${authkey}"
+
+echo

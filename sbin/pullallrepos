@@ -1,0 +1,23 @@
+#!/bin/zsh
+# enter into all folders within the current working directory - if the folder is a git repo pull the latest from remote
+
+set -e
+
+for dir in */; do
+    if [[ $dir == "node/" ]]; then
+        # eeeeeee don't update node
+        continue
+    fi
+    if [ -d "$dir/.git" ]; then
+        cd "$dir"
+        echo "pulling $dir"
+        if [ -z "$(git status --porcelain)" ]; then
+            git pull
+        else
+            echo "repo has local changes - skipping!"
+        fi
+        cd ..
+    else
+        echo "$dir is not a git repo"
+    fi
+done

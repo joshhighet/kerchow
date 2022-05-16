@@ -1,0 +1,9 @@
+#!/bin/zsh
+# use the dnsgrep api provided by bufferover.run to lookup a domain
+
+if [ -z "$1" ]; then
+    echo "usage: projectsonar <domain>"
+    exit 1
+fi
+
+curl --silent "https://dns.bufferover.run/dns?q=${1}" | jq 'del (.Meta)'

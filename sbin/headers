@@ -1,0 +1,9 @@
+#!/bin/zsh
+# show the headers returned by a URI (GET)
+
+if [ -z "$1" ]; then
+    echo "usage: headers <url>"
+    exit 1
+fi
+
+curl --url $1 --head --request GET
