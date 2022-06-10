@@ -1,0 +1,4 @@
+#!/bin/bash
+# print my public keys
+
+tail -n 420 ~/.ssh/*.pub

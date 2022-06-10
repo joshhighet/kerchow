@@ -1,0 +1,22 @@
+#!/bin/bash
+# edit source code of any script in this directory. use any var2 to prevent auto git pull/push
+
+set -e
+sourcedir=${PWD}
+cd "$(dirname "$0")"
+echo "checking for remote changes..."
+test ! -z "$2" || git pull --ff-only
+if [[ -z "$1" ]] ; then
+	echo "exiting."
+	exit 0
+fi
+nano "$1"
+chmod +x "$1"
+changes=$( git status 2>&1 )
+if [[ "$changes" == *"Changes not staged for commit"* || "$changes" == *"Untracked files"* ]] ; then
+        test ! -z "$2" || git add .
+	test ! -z "$2" || gp
+else
+	echo "no local changes applied."
+fi
+

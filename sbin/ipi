@@ -1,0 +1,4 @@
+#!/bin/bash
+# query IP API for any IP details - beware, ip-api believe TLS is a premium feature
+
+curl -s "http://ip-api.com/${1}" -H "User-Agent: curl/7.54"

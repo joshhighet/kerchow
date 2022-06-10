@@ -1,0 +1,4 @@
+#!/bin/bash
+# git add shortcut for all files or the specified ones
+
+test -z "$1" && git add . || git add ${@}

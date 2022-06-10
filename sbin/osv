@@ -1,0 +1,16 @@
+#!/bin/bash
+# return a known OS version string
+
+# Darwin checks 'osx'
+if $( uname -a | grep Darwin &>/dev/null ) ; then
+	echo osx
+	exit 0
+fi
+
+if os_string=$( grep "^ID=" /etc/os-release 2>/dev/null ) ; then
+	echo ${os_string} | cut -d'=' -f2 | tr -d '"'
+	exit 0
+fi
+
+echo unknown
+exit 1 # could do determine OS

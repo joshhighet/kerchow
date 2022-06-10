@@ -1,0 +1,19 @@
+#!/bin/bash
+# list valid NZ PANs forever or until var1=numberToReturn
+
+binranges="483348 428455 454860 531496 467883 500051 483561"
+target=$1
+current=0
+while true ; do
+  for cardbin in $binranges ; do
+    account=$( openssl rand 6 | od -DAn | tr -d ' ' | cut -c 1-10 )
+    newpan=${cardbin}${account}
+    if validpan ${newpan} >/dev/null ; then
+      echo ${newpan}
+      current=$((current+1))
+      if [[ $target != "" ]] && [[ $current -ge $target ]] ; then
+        exit 0
+      fi
+    fi
+  done
+done

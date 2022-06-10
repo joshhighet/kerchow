@@ -1,0 +1,15 @@
+#!/bin/bash
+# macos: empty trash, clear system logs & clear download history from quarantine
+# https://mths.be/bum
+
+set -e
+
+if [[ $(uname -s) != "Darwin" ]]; then
+  echo "script for macOS"
+  exit 1
+fi
+
+sudo rm -rfv /Volumes/*/.Trashes
+sudo rm -rfv ~/.Trash
+sudo rm -rfv /private/var/log/asl/*.asl
+sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'

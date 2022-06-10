@@ -1,0 +1,18 @@
+#!/bin/bash
+# get basic into on the git repo you are within (upstream url, description)
+
+if [[ -z "$(git rev-parse --git-dir 2>/dev/null)" ]]; then
+  echo "not in a git repo"
+  exit 1
+fi
+
+url=`git config --get remote.origin.url`
+repo_name=`echo ${url} | sed -e 's/^.*:\/\/github.com\///' -e 's/\.git$//'`
+url_no_git=`echo ${url} | sed -e 's/\.git$//'`
+last_commit=`git --no-pager log -1 --format="%ai"`
+last_author=`git --no-pager log -1 --format="%an"`
+repo_description=`curl -s https://api.github.com/repos/${repo_name} | jq -r '.description'`
+echo "url: ${url_no_git}"
+echo "last author: ${last_author}"
+echo "description: ${repo_description}"
+echo "last commit: ${last_commit}"

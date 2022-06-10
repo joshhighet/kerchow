@@ -1,0 +1,16 @@
+#!/bin/bash
+# enrich an ip address with shodan & ipinfo
+
+if [ -z "$1" ]; then
+  echo "usage: ipinfo <ip>"
+  exit 1
+fi
+
+if [ -x "$(command -v curl)" ]; then
+  curl -s ipinfo.io/${1} -H "User-Agent: curl/7.54" | jq 'del(.readme)'
+  #curl -s ipinfo.io/1.1.1.1 -H "User-Agent: curl/7.54" | jq 'del(.readme) | del(.hostname) | del(.region) | del(.country) | del(.ip) | del(.city) | del(.org)'
+fi
+
+if [ -x "$(command -v shodan)" ]; then
+  shodan host ${1}
+fi

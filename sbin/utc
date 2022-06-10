@@ -1,0 +1,4 @@
+#!/bin/bash
+# list given date as UTC time
+
+TZ=utc date -d @"$1" 2>/dev/null || date -d "$1" 2>/dev/null || TZ=utc date

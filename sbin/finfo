@@ -1,0 +1,37 @@
+#!/bin/bash
+# quickly retrieve get file info and hashes
+
+if [[ -z "${1}" ]]; then
+  echo "usage: finfo <file>"
+  exit 1
+fi
+
+if [[ ! -f "${1}" ]]; then
+  echo "error: ${1} is not a file! ("$(file -b "${1}")")"
+  exit 1
+fi
+
+if [[ "$(uname)" != "Darwin" ]]; then
+  echo "error: this script is only for macos"
+  exit 1
+fi
+
+sha1sig=$(sha1sum "${1}" | awk '{print $1}')
+sha2sig=$(sha256sum "${1}" | awk '{print $1}')
+sha5sig=$(sha512sum "${1}" | awk '{print $1}')
+md5sig=$(md5sum "${1}" | awk '{print $1}')
+crc32sig=$(crc32 "${1}" | awk '{print $1}')
+finfo=$(file "${1}" | sed -e 's/^.*: //')
+fsize=$(du -h "${1}" | awk '{print $1}')
+modifiytz=$(GetFileInfo "${1}" | grep modified | sed -e 's/^.*: //')
+createtz=$(GetFileInfo "${1}" | grep created | sed -e 's/^.*: //')
+
+echo "info     | ${finfo}"
+echo "size     | ${fsize}"
+echo "modified | ${modifiytz}"
+echo "created  | ${createtz}"
+echo "sha1     | ${sha1sig}"
+echo "sha2     | ${sha2sig}"
+echo "sha5     | ${sha5sig}"
+echo "md5      | ${md5sig}"
+echo "crc32    | ${crc32sig}"

@@ -1,0 +1,16 @@
+#!/bin/zsh
+# make emoji rain
+
+# get the matrix script if it doesnt exist
+matrixpath="${0:a:h}/matrix"
+echo "Press Q or Ctrl-C to exit"
+if [[ ! -f "$matrixpath" ]] ; then
+curl -s -L "https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py" -o "$matrixpath"
+chmod +x "$matrixpath"
+fi
+
+# fetch random emoji and run matrix with them
+emojiUrl="https://api.emojisworld.fr/v1/random?limit=100"
+emojiList=`curl -s "$emojiUrl" | jq -r -c '.results[].emoji' | tr -d '\n'`
+"$matrixpath" -o -f -s 90 -a -u "$emojiList"
+

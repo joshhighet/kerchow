@@ -1,0 +1,4 @@
+#!/bin/bash
+# list current running docker containers
+
+docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Status}}\t{{.Networks}}\t{{.Mounts}}"

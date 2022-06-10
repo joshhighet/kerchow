@@ -1,0 +1,4 @@
+#!/bin/bash
+# list all defined kubernetes deployments
+
+kubectl get deploy | grep -v NAME | cut -d' ' -f1

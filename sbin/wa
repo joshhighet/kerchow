@@ -1,0 +1,4 @@
+#!/bin/bash
+# colorful watch wrapper for localhost (local http develop) - takes port as $1
+
+watch -n 2 --color  "( curl localhost:$1 -s 2>/dev/null | jq . -C 2>/dev/null )"

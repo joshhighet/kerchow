@@ -1,0 +1,11 @@
+#!/bin/bash
+# scale a kuberenetes service up to one or bring all up if unspecified
+
+if [[ "$1" == "all" ]] || [[ -z "$1" ]] ; then
+  ks | while read deploy ; do
+    kubectl scale -n mdr deploy/$deploy --replicas=1
+    sleep 1
+  done
+else
+  kubectl scale -n mdr deploy/$( ks $1 ) --replicas=1
+fi

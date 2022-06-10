@@ -1,0 +1,8 @@
+#!/bin/bash
+# python3 simple http server
+
+if [ -f /usr/bin/python3 ]; then
+    python3 -m http.server
+else
+    echo "python3 required for http.server"
+fi

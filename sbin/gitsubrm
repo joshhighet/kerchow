@@ -1,0 +1,30 @@
+#!/bin/bash
+# remove a submodule from a git repo
+
+set -e
+
+if [[ -z "$(git rev-parse --git-dir 2>/dev/null)" ]]; then
+  echo "not in a git repo"
+  exit 1
+fi
+
+if [[ -z "${1}" ]]; then
+  echo "usage: gitsubrm <submodule-path>"
+  exit 1
+fi
+
+if [[ ! -d "${1}" ]]; then
+  echo "submodule path appears invalid"
+  exit 1
+fi
+
+base=$PWD
+git submodule init
+git submodule update
+
+cd $1 && echo removing `git config --get remote.origin.url` && cd $base
+
+git submodule deinit -f "${1}"
+rm -rf .git/modules/"${1}"
+git rm -f "${1}"
+git commit -m "removed submodule ${1}"

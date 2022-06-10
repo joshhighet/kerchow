@@ -1,0 +1,14 @@
+#!/bin/bash
+# kill latest or specified docker container
+
+if test ! -z "$1" ; then
+  docker rm -f "$1"
+  else
+  latestcontainer=$( docker ps -n1 -q )
+  if test ! -z "$latestcontainer" ; then
+    docker rm -f "$latestcontainer"
+  else
+    echo No running containers >&2
+    exit
+  fi
+fi

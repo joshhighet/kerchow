@@ -1,0 +1,4 @@
+#!/bin/bash
+# list all docker images on current system
+
+docker images --all --no-trunc

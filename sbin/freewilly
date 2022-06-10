@@ -1,0 +1,9 @@
+#!/bin/bash
+# clean all docker images and networks
+
+while ! docker info > /dev/null 2>&1; do
+  echo "waiting for docker to become available"
+  sleep 5
+done
+
+docker system prune -a -f

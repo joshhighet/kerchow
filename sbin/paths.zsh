@@ -1,18 +1,18 @@
 #!/bin/zsh
-# initialises sbin for drivers/sbin
+# initialises sbin for kerchow/sbin
 
 set -e #-x
 
 location=`timeout .1 git rev-parse --show-toplevel`
 
-if [[ ! "${location}" =~ "kitchen" ]] ; then
+if [[ ! "${location}" =~ "kerchow" ]] ; then
   echo "paths.sh needs to be executed from within joshhighet/kerchow"
   exit 1
 fi
 
 if ! grep "kerchow/sbin" ~/.zshrc &>/dev/null ; then
     cd "${location}/sbin"
-    cp ~/.zshrc ~/.zshrc-backup-joshhighet-drivers-sbin
+    cp ~/.zshrc ~/.zshrc-backup-joshhighet-kerchow-sbin
     echo "kerchow/sbin not in path, adding"
     echo "" >> ~/.zshrc
     echo "# added by sbin/paths.sh from joshhighet/kerchow" >> ~/.zshrc

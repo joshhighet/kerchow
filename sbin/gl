@@ -1,0 +1,5 @@
+#!/bin/bash
+# git pull the updates of the current dir structure
+
+git fetch -a
+git pull

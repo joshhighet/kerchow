@@ -1,0 +1,7 @@
+#!/bin/bash
+# auto audit the local package.json and produce 'report.html' output
+
+rm -f ./report.html >&2 ||:
+npm install -g npm-audit-html
+npm update -g npm-audit-html
+npm audit --json | npm-audit-html -o ./report.html

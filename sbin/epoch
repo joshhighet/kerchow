@@ -1,0 +1,10 @@
+#!/bin/bash
+# convert epoch int to local datetime
+
+# if macos use gdate
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  test -z "$1" || date -d @$1
+else
+  test -z "$1" || date -r @$1
+fi
+

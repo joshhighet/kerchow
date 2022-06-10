@@ -1,0 +1,24 @@
+#!/bin/bash
+# macos: update os, applications, homebrew etc
+
+if [[ $(uname -s) != "Darwin" ]]; then
+  echo "script for macOS"
+  exit 1
+fi
+
+if [[ -x "$(command -v tldr)" ]]; then
+  tldr --update
+fi
+
+if [[ -x "$(command -v brew)" ]]; then
+  brew update
+  brew upgrade
+  brew cleanup
+  brew doctor
+fi
+
+if [[ -x "$(command -v npm)" ]]; then
+  npm update -g
+fi
+
+softwareupdate -i -a

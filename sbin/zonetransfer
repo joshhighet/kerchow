@@ -1,0 +1,23 @@
+#!/bin/bash
+# attempt an DNS AXFR (zone transfer) with dig
+
+if [ -z "${1}" ]; then
+  echo "usage: zonetransfer <domain>"
+  exit 1
+fi
+
+dig NS $1 +short \
+| while read -r line ; do
+  printf 'attempting zone txfr on '${1}', nameserver '${line}''
+  dig axfr @${line} ${1} \
+  | grep --invert-match \
+  --regexp='; Transfer failed.' \
+  --regexp=';; global options: +cmd' \
+  --regexp='; <<>> DiG ' \
+  --regexp='servers found)' \
+  --regexp='Query time' \
+  --regexp='XFR size' \
+  --regexp='SERVER: ' \
+  --regexp='WHEN: ' \
+  --regexp='server found)'
+done

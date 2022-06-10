@@ -1,0 +1,9 @@
+#!/bin/bash
+# use trufflehog to search the current working dir for creds
+
+docker pull dxa4481/trufflehog:latest
+docker run --rm -v "$(pwd):/proj:ro" \
+--network none \
+--name trufflehog \
+--hostname trufflehog \
+dxa4481/trufflehog file:///proj --entropy=False --regex

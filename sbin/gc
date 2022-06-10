@@ -1,0 +1,4 @@
+#!/bin/bash
+# clone a remote repo to local into current dir
+
+git clone "$@"

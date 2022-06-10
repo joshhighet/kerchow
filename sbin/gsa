@@ -1,0 +1,10 @@
+#!/bin/bash
+# shortcut git submodule add
+
+if [[ -z "${1}" ]]; then
+  echo "usage: ${0} <git remote uri>"
+  exit 1
+fi
+
+git submodule add ${1}
+git commit -m "added submodule ${1}"

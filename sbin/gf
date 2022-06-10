@@ -1,0 +1,4 @@
+#!/bin/bash
+# show git tracked changes of a file
+
+test ! -z "$1" &>/dev/null && git diff --color --minimal "$1" || git diff --color --minimal

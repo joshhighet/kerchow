@@ -1,0 +1,10 @@
+#!/bin/bash
+# flush dns cache on macOS (monterey)
+
+if [[ $(uname -s) != "Darwin" ]]; then
+  echo "script for macOS"
+  exit 1
+fi
+
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder

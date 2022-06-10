@@ -1,0 +1,4 @@
+#!/bin/bash
+# take down the current dir docker-compose instance
+
+docker-compose down --rmi all -v --remove-orphans -t 5

@@ -1,0 +1,19 @@
+#!/bin/bash
+# auto commit and push changes. var1 can be commit message or it will prompt for one. dont use spaces
+
+set -e
+date
+git status
+echo
+if [[ -z "$1" ]] ; then
+echo "Describe your changes in one simple line of alphanumerics"
+changes=""
+read changes
+  if [[ -z "$changes" ]] ; then
+	echo "changes must be described. exiting"
+	exit 1
+  fi
+fi
+#git add .
+git commit -m "${changes}${@}"
+git push || git push --set-upstream origin "$( git branch )"

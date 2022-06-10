@@ -18,15 +18,13 @@ vCSAgICAgIAkgIHNoZWxsanVtcAoK' \
 echo "${fg[green]}$banner${reset_color}"
 echo
 
-hosts=(
-    all
-    gbon.one
-    pihole.highnet
-    homekit.highnet
-    moonrock.highnet
-    telemetry.highnet
-    controltower.highnet
-)
+if [ -f ~/.kerchow-hosts ]; then
+    hosts=($(cat ~/.kerchow-hosts))
+    hosts=(all "${hosts[@]}")
+else
+    bad "config file missing, create ~/.kerchow-hosts with one hostname per line."
+    exit 1
+fi
 
 select host in "${hosts[@]}"; do
     if [ -n "${host}" ]; then

@@ -1,0 +1,15 @@
+#!/bin/bash
+# open an fqdn in a browser
+
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  echo "only works on macos sorry"
+  exit 1
+fi
+
+# check $1 is set
+if [[ -z "$1" ]]; then
+  echo "usage: openh <fqdn>"
+  exit 1
+fi
+
+open "http://${1}"

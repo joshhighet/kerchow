@@ -1,0 +1,17 @@
+#!/bin/bash
+# googles something in default browers, macos only
+
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  echo "only works on macos sorry"
+  exit 1
+fi
+
+# check $1 is set
+if [[ -z "$1" ]]; then
+  printf 'search query:' && read query
+else
+  query=$1
+fi
+
+query=$(echo $query | sed 's/ /%20/g')
+open "https://google.com/search?q=${query}"

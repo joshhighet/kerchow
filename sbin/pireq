@@ -1,0 +1,4 @@
+#!/bin/bash
+# shortcut to install python3 deps from requirements.txt
+
+pip3 install -r requirements.txt

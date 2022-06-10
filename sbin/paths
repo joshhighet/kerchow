@@ -1,0 +1,23 @@
+#!/bin/zsh
+# initialises paths to effectivley use scripts within thetanz/scripts/sbin
+
+set -e #-x
+
+location=`timeout .1 git rev-parse --show-toplevel`
+
+if [[ ! "${location}" =~ "scripts" ]] ; then
+  echo "paths needs to be executed from within thetanz/scripts"
+  exit 1
+fi
+
+if ! grep "scripts/sbin" ~/.zshrc &>/dev/null ; then
+    cd "${location}/sbin"
+    cp ~/.zshrc ~/.zshrc-backup-thetanz-scripts-sbin
+    echo "scripts/sbin not in path, adding"
+    echo "" >> ~/.zshrc
+    echo "# added by sbin/paths from thetanz/scripts" >> ~/.zshrc
+    echo "export PATH=${location}/sbin:\$PATH" >> ~/.zshrc
+    echo "added, reopen your terminal or introduce into current session with 'source ~/.zshrc'"
+else
+    echo "computer says no - have you already setup?"
+fi

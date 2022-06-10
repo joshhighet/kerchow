@@ -1,0 +1,11 @@
+#!/bin/bash
+# advanced shortcut for docker-compose up
+
+set -e
+
+# silent max 2sec force down all
+docker-compose down --rmi all -v --remove-orphans -t 2 &>/dev/null ||:
+
+# start with everything fresh
+docker-compose up --force-recreate --always-recreate-deps --build --remove-orphans --renew-anon-volumes
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+# read stdin and list any IPv4 addresses
+
+grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'

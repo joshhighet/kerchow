@@ -1,0 +1,24 @@
+#!/bin/bash
+# use nmap to run a service identification scan (ip and optional port)
+
+if ! which nmap > /dev/null; then
+    echo "error: nmap required and not in PATH"
+    exit 1
+fi
+
+if [ -z "$1" ]; then
+    echo "usage: servicescan <ip> <optional port>"
+    exit 1
+fi
+
+if [ ! -z "$2" ]; then
+    if [ $2 -ge 1 -a $2 -le 65535 ]; then
+        nmap -sV -Pn -p $2 $1
+    else
+        echo "usage: servicescan <ip> <port>"
+        echo "looks like irregular port!"
+        exit 1
+    fi
+else
+    nmap -Pn -sV $1
+fi

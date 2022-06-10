@@ -1,0 +1,17 @@
+#!/bin/zsh
+# lookups a mac address in attempt to vendor correlate
+# https://www.reddit.com/r/networking/comments/rwpniq/bash_script_for_oui_lookups_using_ieee_oui_data/?utm_source=share&utm_medium=ios_app&utm_name=iossmf
+
+if [ $# -eq 0 ]
+then
+  echo "usage: ouilookup [mac]"
+  exit 1
+fi
+
+if [[ ! -f /tmp/oui.txt ]]; then
+    echo "OUI list from ieee missing from /tmp, downloading"
+    curl http://standards-oui.ieee.org/oui/oui.txt -H "User-Agent: curl/7.54" > /tmp/oui.txt
+fi
+
+OUI=`echo "${1}" | tr -d ':.-' | cut -c -6`
+echo `grep -i "${OUI}" /tmp/oui.txt`

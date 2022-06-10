@@ -1,0 +1,12 @@
+#!/bin/bash
+# scan your current dir for sonar cloud
+
+test ! -f ~/.sonarcreds && echo "must have Sonarcloud API key at ~/.sonarcreds" >&2 && exit 1 ||:
+
+docker run \
+-i --rm --name sonar \
+-p9000:9000 \
+-e "SONAR_SCANNER_OPTS=-Xmx512m -Dsonar.login=$(cat ~/.sonarcreds)" \
+-v "${PWD}:/usr/src" \
+-v "/root/.sonar/cache:/opt/sonar-scanner/.sonar/cache" \
+sonarsource/sonar-scanner-cli -X

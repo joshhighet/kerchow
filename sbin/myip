@@ -1,0 +1,4 @@
+#!/bin/bash
+# return my current IP address
+
+curl -s https://checkip.amazonaws.com

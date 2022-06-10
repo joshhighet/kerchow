@@ -1,0 +1,14 @@
+#!/bin/bash
+# use the cloudflared tunnel agent to ssh onto a target fqdn
+
+if [ -z "$1" ]; then
+  echo "usage: cfssh <fqdn>"
+  exit 1
+fi
+
+if ! which cloudflared > /dev/null; then
+  echo "cloudflared required and missing from \$PATH"
+  exit 1
+fi
+
+cloudflared access ssh-config --hostname "$1"

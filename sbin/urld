@@ -1,0 +1,4 @@
+#!/bin/bash
+# decode a url
+
+: "${*//+/ }"; echo -e "${_//%/\\x}";

@@ -1,0 +1,33 @@
+#!/bin/zsh
+# pingsweep (or tcp chek if port provided as arg1)
+
+autoload colors; colors
+good() { echo "${fg[green]}$@${reset_color}" >&2 }
+bad() { echo "${fg[red]}$@${reset_color}" >&2 }
+
+if [ -f ~/.kerchow-hosts ]; then
+    hosts=($(cat ~/.kerchow-hosts))
+else
+    bad "config file missing, create ~/.kerchow-hosts with one hostname per line."
+    exit 1
+fi
+
+if [ -n "$1" ]; then
+    for host in ${hosts[@]}; do
+        response=$(timeout 2 nc -z $host $1 2>&1)
+        if [ $? -eq 0 ]; then
+            good "$host:$1 is up"
+        else
+            bad "$host:$1 is down!"
+        fi
+    done
+else
+    for host in "${hosts[@]}"; do
+        ping -c1 $host > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            good "$host is up"
+        else
+            bad "$host is down!"
+        fi
+    done
+fi
