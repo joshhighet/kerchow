@@ -5,7 +5,7 @@ set -e #-x
 
 location=`timeout .1 git rev-parse --show-toplevel`
 
-if [[ ! "${location}" =~ "scripts" ]] ; then
+if [[ ! "${location}" =~ "kerchow" ]] ; then
   echo "paths needs to be executed from within joshhighet/kerchow"
   exit 1
 fi
