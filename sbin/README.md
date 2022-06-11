@@ -242,7 +242,7 @@ _list valid NZ PANs forever or until var1=numberToReturn_
 
 ## paths
 
-_initialises paths to effectivley use scripts within thetanz/scripts/sbin_
+_initialises paths to effectivley use scripts within joshhighet/kerchow_
 
 ## paths.zsh
 
