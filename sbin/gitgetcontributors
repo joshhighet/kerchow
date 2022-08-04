@@ -1,0 +1,11 @@
+#!/bin/bash
+# return a list of emails that have contributed to a git project
+
+if [ ! -d .git ]; then
+    echo "use within a git repo"
+    exit 1
+fi
+
+git log \
+--format='%aN <%aE>' \
+| LC_ALL=C.UTF-8 sort -uf
