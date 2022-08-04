@@ -1,0 +1,8 @@
+#!/bin/bash
+# fetch the latest consensus file from metrics.torproject.org for processing
+
+latest_consensus_uri=$(curl --silent \
+https://metrics.torproject.org/collector/recent/relay-descriptors/microdescs/consensus-microdesc/ \
+| grep '<td><a href="https://collector.torproject.org/recent/relay-descriptors/microdescs/consensus-microdesc/' \
+| head -n 1 | cut -d '"' -f 2)
+wget ${latest_consensus_uri}
