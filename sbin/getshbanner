@@ -1,0 +1,11 @@
+#!/bin/bash
+# fetch a ssh banner from a given server
+
+host="${1}"
+if [ -z "$host" ]; then
+    echo "usage: $0 <server>"
+    exit 1
+fi
+
+banner=$(ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no banner@$host)
+echo "$banner" | grep -q "OpenSSH_7.1p2"
