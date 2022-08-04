@@ -26,6 +26,8 @@ else
     exit 1
 fi
 
+# hosts=(${hosts[@]/hostTo.remove/})
+
 select host in "${hosts[@]}"; do
     if [ -n "${host}" ]; then
         break
@@ -46,7 +48,7 @@ if [ "${host}" = "all" ]
             then
                 continue
             fi
-            blue "${host}"
+            blue "${host} | ${fg[yellow]}$(host ${host} | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}')${reset_color}"
             ssh -q -t -o ConnectTimeout=2 "${host}" "${usrcommand}"
             done
     else
