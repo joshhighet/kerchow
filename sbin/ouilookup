@@ -10,7 +10,7 @@ fi
 
 if [[ ! -f /tmp/oui.txt ]]; then
     echo "OUI list from ieee missing from /tmp, downloading"
-    curl http://standards-oui.ieee.org/oui/oui.txt -H "User-Agent: curl/7.54" > /tmp/oui.txt
+    curl https://standards-oui.ieee.org/oui/oui.txt > /tmp/oui.txt
 fi
 
 OUI=`echo "${1}" | tr -d ':.-' | cut -c -6`
