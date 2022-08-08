@@ -1,0 +1,7 @@
+#!/bin/bash
+# return overview on tor bridges, exits & open relays [nz netspace]
+
+# curl --silent https://onionoo.torproject.org/details | jq -r '.relays[] | select(.country=="nz")'
+curl -s https://onionoo.torproject.org/details \
+| jq '.relays[] | select(.country=="nz") | {nom: .nickname, print: .fingerprint, contact: .contact, asnom: .as_name, as: .as, lastseen: .last_seen, platform: .platform, exit: .exit_probability}' \
+| jq -s
