@@ -16,24 +16,6 @@ brew bundle
 yes | pv | ssh user@dest "cat >/dev/null"
 ```
 
-### update all submodules
-
-```shell
-git submodule update --init --recursive --remote
-```
-### all online ransomwatch hosts
-
-```shell
-curl -sL ransomwhat.telemetry.ltd/groups \
-| jq -r '.[].locations[] | select(.available==true) | .slug'
-```
-
-### view all USB interfaces
-
-```shell
-osqueryi --json 'SELECT * FROM usb_devices WHERE removable' | jq
-```
-
 ### flush git history
 
 ```shell
@@ -44,12 +26,6 @@ git branch -D main
 git branch -m main
 git push -f origin main
 git gc --aggressive --prune=all
-```
-
-### view listening ports
-
-```shell
-sudo lsof -iTCP -sTCP:LISTEN -n -P
 ```
 
 ### proxmark setup

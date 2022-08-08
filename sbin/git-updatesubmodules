@@ -1,0 +1,4 @@
+#!/bin/bash
+# update all submodules within a git project recursivley
+
+git submodule update --init --recursive --remote

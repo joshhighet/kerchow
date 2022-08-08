@@ -10,7 +10,7 @@ if [[ ! "${location}" =~ "kerchow" ]] ; then
   exit 1
 fi
 
-if ! grep "scripts/sbin" ~/.zshrc &>/dev/null ; then
+if ! grep "kerchow/sbin" ~/.zshrc &>/dev/null ; then
     cd "${location}/sbin"
     cp ~/.zshrc ~/.zshrc-backup-joshhighet-kerchow-sbin
     echo "kerchow/sbin not in path, adding"

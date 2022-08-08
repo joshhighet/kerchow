@@ -1,0 +1,9 @@
+#!/bin/bash
+# use osquery to return a list of attached removable usb devices
+
+if ! which osqueryi > /dev/null; then
+    echo "osqueryi not found in path"
+    exit 1
+fi
+
+osqueryi --json 'SELECT * FROM usb_devices WHERE removable' | jq
