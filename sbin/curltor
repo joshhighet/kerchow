@@ -1,0 +1,22 @@
+#!/bin/bash
+# wrapper for curling onionsites with a local/remote tor client over socks5
+
+if [ -z "$1" ]; then
+    echo "usage: curltor <url>"
+    exit 1
+fi
+
+if [ -f ~/.torsocksconf ]; then
+    proxyaddr=$(cat ~/.torsocksconf)
+else
+    proxyaddr='localhost:9050'
+fi
+
+proxyip=$(echo $proxyaddr | cut -d: -f1)
+proxyport=$(echo $proxyaddr | cut -d: -f2)
+if ! nc -z $proxyip $proxyport; then
+    echo "socks5 proxy $proxyaddr is down"
+    exit 1
+fi
+
+curl --socks5-hostname "${proxyaddr}" "${1}"
