@@ -24,6 +24,10 @@ _test colors on a shell_
 
 _use the crt.sh api to lookup a domain for certificates_
 
+## curltor
+
+_wrapper for curling onionsites with a local/remote tor client over socks5_
+
 ## dex
 
 _get a shell in the latest started local container_
@@ -88,6 +92,10 @@ _list current git branches - if given var1 then change to or create that branch 
 
 _clone a remote repo to local into current dir_
 
+## getshbanner
+
+_fetch a ssh banner from a given server_
+
 ## gf
 
 _show git tracked changes of a file_
@@ -99,6 +107,10 @@ _get basic into on the git repo you are within (upstream url, description)_
 ## gitcreds
 
 _use trufflehog to search the current working dir for creds_
+
+## gitgetcontributors
+
+_return a list of emails that have contributed to a git project_
 
 ## gitsubrm
 
@@ -331,6 +343,14 @@ _multi-host ssh controller_
 ## threatcrowd
 
 _use the threatcrowd api to lookup a domain_
+
+## tor-getLatestConsensus
+
+_fetch the latest consensus file from metrics.torproject.org for processing_
+
+## tornz
+
+_return overview on tor bridges, exits & open relays [nz netspace]_
 
 ## urld
 
