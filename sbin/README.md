@@ -104,6 +104,10 @@ _show git tracked changes of a file_
 
 _get basic into on the git repo you are within (upstream url, description)_
 
+## git-updatesubmodules
+
+_update all submodules within a git project recursivley_
+
 ## gitcreds
 
 _use trufflehog to search the current working dir for creds_
@@ -236,9 +240,17 @@ _auto audit the local package.json and produce 'report.html' output_
 
 _edit source code of any script in this directory. use any var2 to prevent auto git pull/push_
 
+## onionscan
+
+_netscan an onion address with proxychains, jsonified output_
+
 ## openh
 
 _open an fqdn in a browser_
+
+## osq-usb
+
+_use osquery to return a list of attached removable usb devices_
 
 ## osv
 
@@ -299,6 +311,10 @@ _print my public keys_
 ## pullallrepos
 
 _enter into all folders within the current working directory - if the folder is a git repo pull the latest from remote_
+
+## ransomwatch-online
+
+_return a list of all online ransomwatch hosts_
 
 ## readme.zsh
 
