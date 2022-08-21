@@ -1,0 +1,33 @@
+#!/bin/bash
+# netscan an onion address with proxychains, jsonified output
+
+set -e
+
+if ! which proxychains4 > /dev/null; then
+    echo "proxychains4 not found in PATH"
+    exit 1
+fi
+
+if ! which nmap > /dev/null; then
+    echo "nmap not found in PATH"
+    exit 1
+fi
+
+if ! which xq > /dev/null; then
+    echo "xq not found in PATH"
+    exit 1
+fi
+
+if [ -z "$1" ]; then
+    echo "usage: onionscan 'hsdir-address-abcxyz.onion'"
+    exit 1
+fi
+
+proxychains4 \
+nmap -sT -PN -n -sV -oX - \
+--open \
+--top-ports 10 \
+--version-intensity 4 \
+--script ssh-hostkey,ssh-auth-methods,banner \
+--script-args http.useragent=curl/7.79.1,ssh_hostkey=sha256,md5 \
+"${1}" | xq
