@@ -1,0 +1,5 @@
+#!/bin/bash
+# return a list of all online ransomwatch hosts
+
+curl -sL ransomwhat.telemetry.ltd/posts \
+| jq -r '.[].group_name' | sort | uniq -c | sort

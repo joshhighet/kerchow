@@ -64,6 +64,14 @@ _convert epoch int to local datetime_
 
 _make emoji rain_
 
+## feedread-certnz
+
+_show the latest posts on the certnz advisories page_
+
+## feedread-ncscnz
+
+_show the latest posts on the ncsc nz advisories page_
+
 ## finfo
 
 _quickly retrieve get file info and hashes_
@@ -312,7 +320,19 @@ _print my public keys_
 
 _enter into all folders within the current working directory - if the folder is a git repo pull the latest from remote_
 
+## ransomwatch-groupcounts
+
+_return a list of all online ransomwatch hosts_
+
+## ransomwatch-groups
+
+_return a list of all online ransomwatch hosts_
+
 ## ransomwatch-online
+
+_return a list of all online ransomwatch hosts_
+
+## ransomwatch-posts
 
 _return a list of all online ransomwatch hosts_
 
@@ -347,6 +367,10 @@ _show duplicate lines within a file_
 ## sonarscan
 
 _scan your current dir for sonar cloud_
+
+## ssh-nokey
+
+_ssh to rogue hosts without presenting a local key_
 
 ## sshmd5
 

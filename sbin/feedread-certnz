@@ -1,0 +1,4 @@
+#!/bin/bash
+# show the latest posts on the certnz advisories page
+
+curl -s https://www.cert.govt.nz/it-specialists/advisories/ | grep '<h3 class="card__title">' | cut -d '>' -f 2 | cut -d '<' -f 1 | sed -e 's/^/CERT: /'

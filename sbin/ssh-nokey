@@ -1,0 +1,9 @@
+#!/bin/zsh
+# ssh to rogue hosts without presenting a local key
+
+if [ -z "$1" ]; then
+    echo "usage: ssh-nokey <host>"
+    exit 1
+fi
+
+ssh -o PasswordAuthentication=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no ${1}

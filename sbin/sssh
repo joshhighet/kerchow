@@ -47,7 +47,13 @@ if [ "${host}" = "all" ]
             then
                 continue
             fi
-            good "${host} | ${fg[yellow]}$(host ${host} | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}')${reset_color}"
+            resolve_address=$(host "${host}" | awk '/has address/ { print $4 }')
+            if [ -z "${resolve_address}" ]
+            then
+                warn "${host} | failed to resolve"
+                continue
+            fi
+            good "${host} | ${fg[yellow]}${resolve_address}${reset_color}"
             ssh -q -t -o ConnectTimeout=2 "${host}" "${usrcommand}"
             done
     else
