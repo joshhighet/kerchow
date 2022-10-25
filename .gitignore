@@ -3,3 +3,4 @@
 elasticrodeo/outputs/*.csv
 telegram/config.ini
 telegram/anon.session
+sbin/urlscan-*.json
