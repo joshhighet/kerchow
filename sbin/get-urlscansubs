@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# build a dataset of url's for cybercyber w/ urlscan 
+
+import requests
+import json
+import argparse
+import sys
+import argparse
+import logging
+
+logging.basicConfig(level=logging.INFO)
+argparser = argparse.ArgumentParser()
+argparser.add_argument('--api', help='urlscan.io key')
+args = argparser.parse_args()
+
+if args.api is None:
+    logging.warning("no api key supplied with --api, once we are rate limited i will die")
+    headers = {}
+else:
+    headers = {'API-Key': args.api}
+
+urldata = requests.get('https://urlscan.io/api/v1/search/?q=*', headers=headers)
+if urldata.status_code != 200:
+    print("error: {} {}".format(urldata.status_code, urldata.reason))
+    sys.exit(1)
+else:
+    with open('urlscan-submissions.json', 'w') as f:
+        f.write(json.dumps(urldata.json(), indent=4))
+        f.close()
+        logging.info("saved urlscan-submissions.json")
+
+with open('urlscan-results.json', 'w') as f:
+    f.write(json.dumps([], indent=4))
+    f.close()
+
+for entry in urldata.json()['results']:
+    with open('urlscan-results.json', 'r') as f:
+        records = json.loads(f.read())
+        f.close()
+    logging.info("working on: {}".format(entry['page']['url']))
+    submitted_url = entry['page']['url']
+    scan_results = requests.get('https://urlscan.io/api/v1/result/{}'.format(entry['_id']), headers=headers)
+    if scan_results.status_code != 200:
+        print("error: {} {}".format(scan_results.status_code, scan_results.reason))
+        sys.exit(1)
+    with open('urlscan-results.json', 'w') as f:
+        records.append({'url': submitted_url, 'verdict': scan_results.json()['verdicts']['overall'], 'date': entry['task']['time']})
+        f.write(json.dumps(records, indent=4))
+        f.close()
