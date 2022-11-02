@@ -1,0 +1,22 @@
+#!/bin/bash
+# get the m365 tenantid for a given domain
+
+# require $1
+if [ -z "$1" ]; then
+    echo "usage: getmstenant <domain>"
+    exit 1
+fi
+
+request_uri='https://login.microsoftonline.com/'${1}'/.well-known/openid-configuration'
+webresponse=$(curl -s -X GET ${request_uri})
+tenantid=$(echo ${webresponse} | jq -r '.issuer' | cut -d'/' -f4)
+if [ -z "${tenantid}" ]; then
+    echo "error: no tenantid found"
+    exit 1
+else
+    if [ "${tenantid}" = "null" ]; then
+        echo "error: no tenantid found"
+        exit 1
+    fi
+fi
+echo ${tenantid}
