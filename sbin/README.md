@@ -24,6 +24,10 @@ _test colors on a shell_
 
 _use the crt.sh api to lookup a domain for certificates_
 
+## cruises
+
+_fetch incoming ships and parse using beautifulsoup_
+
 ## curltor
 
 _wrapper for curling onionsites with a local/remote tor client over socks5_
@@ -99,6 +103,14 @@ _list current git branches - if given var1 then change to or create that branch 
 ## gc
 
 _clone a remote repo to local into current dir_
+
+## get-urlscansubs
+
+_build a dataset of url's for cybercyber w/ urlscan _
+
+## getmstenant
+
+_get the m365 tenantid for a given domain_
 
 ## getshbanner
 
