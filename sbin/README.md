@@ -1,5 +1,9 @@
 # doco
 
+## boing
+
+_make bebop noise_
+
 ## cat
 
 _replace cat with bat so we get awesome output_
