@@ -1,0 +1,10 @@
+#!/bin/bash
+# return big files on disk - biggest 5 by default unless arg1
+
+if [ -n "${1}" ]; then
+    limit="${1}"
+else
+    limit=5
+fi
+
+find / -type f -exec du -a {} + -print 2>/dev/null | sort -nr | head -n "${limit}"
