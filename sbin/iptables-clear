@@ -1,0 +1,27 @@
+#!/bin/bash
+# drop all iptables chains
+
+echo "WARNING: this script will drop all iptables chains"
+read -p "are you really really sure you wanna do this [y/N] " -n 1 -r
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    echo
+    echo "exiting..."
+    exit 1
+fi
+
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -F INPUT
+iptables -F OUTPUT
+iptables -F FORWARD
+ip6tables -P INPUT ACCEPT
+ip6tables -P OUTPUT ACCEPT
+ip6tables -P FORWARD ACCEPT
+ip6tables -F INPUT
+ip6tables -F OUTPUT
+ip6tables -F FORWARD
+
+iptables-save
+ip6tables-save
