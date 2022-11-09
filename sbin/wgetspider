@@ -1,0 +1,25 @@
+#!/bin/bash
+# spider/download a site using wget into './downloaded'
+user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"
+
+if [ -z "$1" ]; then
+    echo "usage: $0 <url>"
+    exit 1
+fi
+
+if [[ "$1" != http* ]]; then
+    url="http://${1}"
+else
+    url="${1}"
+fi
+
+url_after_redirect=$(curl -sI "${url}" | grep -i Location | awk '{print $2}')
+
+wget \
+--tries=5 --html-extension --user-agent="${user_agent}" --server-response --wait 2s \
+--random-wait --quota="2m" --passive-ftp --execute="robots = off" --no-dns-cache \
+--recursive --convert-links --page-requisites --page-requisites --no-check-certificate \
+--max-redirect=5 --level=5 --no-parent --no-host-directories --adjust-extension \
+--directory-prefix="downloaded" "${url_after_redirect}"
+
+echo 'finished - see ./downloaded'
