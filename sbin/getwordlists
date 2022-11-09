@@ -1,0 +1,129 @@
+#!/bin/bash
+# fetch a heap of wordlists for... science
+
+set -e
+output_dir="/tmp/wordlists"
+if [ ! -d "$output_dir" ]; then
+  mkdir "$output_dir"
+fi
+
+### fuzzdb
+wget -q -N -o /dev/null --show-progress \
+https://codeload.github.com/fuzzdb-project/fuzzdb/zip/refs/heads/master \
+-O ${output_dir}/fuzzdb-project.zip
+### seclists
+wget -q -N -o /dev/null --show-progress \
+https://github.com/danielmiessler/SecLists/archive/master.zip \
+-O ${output_dir}/seclists.zip
+### xsuperbug
+wget -q -N -o /dev/null --show-progress \
+https://github.com/xsuperbug/payloads/archive/master.zip \
+-O ${output_dir}/xsuperbug.zip
+### 7iosecurity
+wget -q -N -o /dev/null --show-progress \
+https://github.com/7ioSecurity/XSS-Payloads/archive/master.zip \
+-O ${output_dir}/7iosecurity.zip
+### shadsidd
+wget -q -N -o /dev/null --show-progress \
+https://github.com/shadsidd/Automated-XSS-Finder/archive/master.zip \
+-O ${output_dir}/shadsidd.zip
+### tennc
+wget -q -N -o /dev/null --show-progress \
+https://gist.github.com/tennc/4026cfd0925aaad0a655/archive/c5741a19a0007bac49caf6cfccc93b296ec38cf0.zip \
+-O ${output_dir}/tennc.zip
+### sqlifuzzer
+wget -q -N -o /dev/null --show-progress \
+https://github.com/ContactLeft/sqlifuzzer/archive/master.zip \
+-O ${output_dir}/sqlifuzzer.zip
+### wfuzz
+wget -q -N -o /dev/null --show-progress \
+https://github.com/xmendez/wfuzz/archive/master.zip \
+-O ${output_dir}/wfuzz.zip
+### big list of naughty strings
+wget -q -N -o /dev/null --show-progress \
+https://github.com/minimaxir/big-list-of-naughty-strings/archive/master.zip \
+-O ${output_dir}/big-list-of-naughty-strings.zip
+### xsscx
+wget -q -N -o /dev/null --show-progress \
+https://github.com/xsscx/Commodity-Injection-Signatures/archive/master.zip \
+-O ${output_dir}/xsscx.zip
+### therook
+wget -q -N -o /dev/null --show-progress \
+https://github.com/TheRook/subbrute/archive/master.zip \
+-O ${output_dir}/therook.zip
+### danielmiessler
+wget -q -N -o /dev/null --show-progress \
+https://github.com/danielmiessler/RobotsDisallowed/archive/master.zip \
+-O ${output_dir}/danielmiessler.zip
+### firefart
+wget -q -N -o /dev/null --show-progress \
+https://github.com/FireFart/HashCollision-DOS-POC/archive/master.zip \
+-O ${output_dir}/firefart.zip
+### swisskyrepo
+wget -q -N -o /dev/null --show-progress \
+https://github.com/swisskyrepo/PayloadsAllTheThings/archive/master.zip \
+-O ${output_dir}/swisskyrepo.zip
+### 1N3
+wget -q -N -o /dev/null --show-progress \
+https://github.com/1N3/IntruderPayloads/archive/master.zip \
+-O ${output_dir}/1N3.zip
+### cujanovic
+wget -q -N -o /dev/null --show-progress \
+https://github.com/cujanovic/Open-Redirect-Payloads/archive/master.zip \
+-O ${output_dir}/cujanovic.zip
+## content-bruteforcing
+wget -q -N -o /dev/null --show-progress \
+https://github.com/cujanovic/Content-Bruteforcing-Wordlist/archive/master.zip \
+-O ${output_dir}/content-bruteforcing.zip
+# subdom-brutelist
+wget -q -N -o /dev/null --show-progress \
+https://github.com/cujanovic/subdomain-bruteforce-list/archive/master.zip \
+-O ${output_dir}/subdom-brutelist.zip
+# crlf-payloads
+wget -q -N -o /dev/null --show-progress \
+https://github.com/cujanovic/CRLF-Injection-Payloads/archive/master.zip \
+-O ${output_dir}/crlf-payloads.zip
+# vhost-wordlists
+wget -q -N -o /dev/null --show-progress \
+https://github.com/cujanovic/Virtual-host-wordlist/archive/master.zip \
+-O ${output_dir}/vhost-wordlists.zip
+# dirsearch-wordlists
+wget -q -N -o /dev/null --show-progress \
+https://github.com/cujanovic/dirsearch-wordlist/archive/master.zip \
+-O ${output_dir}/dirsearch-wordlists.zip
+### lavalamp
+wget -q -N -o /dev/null --show-progress \
+https://github.com/lavalamp-/password-lists/archive/master.zip \
+-O ${output_dir}/lavalamp.zip
+### arnaudsoullie
+wget -q -N -o /dev/null --show-progress \
+https://github.com/arnaudsoullie/ics-default-passwords/archive/master.zip \
+-O ${output_dir}/arnaudsoullie.zip
+### scadastrangelove
+wget -q -N -o /dev/null --show-progress \
+https://github.com/scadastrangelove/SCADAPASS/archive/master.zip \
+-O ${output_dir}/scadastrangelove.zip
+### jeanphorn
+wget -q -N -o /dev/null --show-progress \
+https://github.com/jeanphorn/wordlist/archive/master.zip \
+-O ${output_dir}/jeanphorn.zip
+### j3ers3
+wget -q -N -o /dev/null --show-progress \
+https://github.com/j3ers3/PassList/archive/master.zip \
+-O ${output_dir}/j3ers3.zip
+### nyxxxie
+wget -q -N -o /dev/null --show-progress \
+https://github.com/nyxxxie/awesome-default-passwords/archive/master.zip \
+-O ${output_dir}/nyxxxie.zip
+### foospidy
+wget -q -N -o /dev/null --show-progress \
+https://github.com/foospidy/web-cve-tests/archive/master.zip \
+-O ${output_dir}/foospidy.zip
+### terjanq
+wget -q -N -o /dev/null --show-progress \
+https://github.com/terjanq/Tiny-XSS-Payloads/archive/master.zip \
+-O ${output_dir}/terjanq.zip
+
+for file in ${output_dir}/*.zip; do
+    unzip -q -o $file -d ${output_dir}
+done
