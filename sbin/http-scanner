@@ -1,0 +1,39 @@
+#!/bin/bash
+# run a suite of url checks for the cyber ??
+
+if [ -z "${2}" ]
+  then
+    echo 'domain & path required'
+    echo 'http-scanner https://cdn.joshhighet.com /images/me.png'
+    exit 1
+fi
+
+echo "GET: "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET ${1}${2})
+echo "POST: "$(curl -k -s -o /dev/null -w "%{http_code}" -H "Content-Length:0" -X POST ${1}${2})
+echo "HEAD: "$(curl -k -s -o /dev/null -w "%{http_code}" -X HEAD ${1}${2})
+echo "OPTIONS: "$(curl -k -s -o /dev/null -w "%{http_code}" -X OPTIONS ${1}${2})
+echo "PUT: "$(curl -k -s -o /dev/null -w "%{http_code}" -X PUT ${1}${2})
+echo "TRACE: "$(curl -k -s -o /dev/null -w "%{http_code}" -X TRACE ${1}${2})
+echo "TRACK: "$(curl -k -s -o /dev/null -w "%{http_code}" -X TRACK ${1}${2})
+echo "CONNECT: "$(curl -k -s -o /dev/null -w "%{http_code}" -X CONNECT ${1}${2})
+echo "PATCH: "$(curl -k -s -o /dev/null -w "%{http_code}" -X PATCH ${1}${2})
+echo "%2e : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET ${1}/%2e${2})
+echo "/. : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET "${1}${2}/.")
+echo "? : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET ${1}${2}?)
+echo "?? : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET ${1}${2}??)
+echo "// : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET ${1}/${2}//)
+echo "/./ : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET "${1}/.${2}/./")
+echo "/ : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET ${1}${2}/)
+echo "/.randomstring : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET "${1}${2}/".randomstring)
+echo "..;/ : "$(curl -k -s -o /dev/null -w "%{http_code}" -X GET "${1}${2}..;/")
+echo "referer : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "Referer: ${1}${2}" -X GET "${1}${2}")
+echo "X-Custom-IP-Authorization : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Custom-IP-Authorization: 127.0.0.1" -X GET "${1}${2}")
+echo "X-Custom-IP-Authorization+..;/ : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Custom-IP-Authorization: 127.0.0.1" -X GET "${1}${2}..;/")
+echo "X-Original-URL : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Original-URL: ${2}" -X GET ${1}/anything)
+echo "X-Rewrite-URL : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Rewrite-URL: ${2}" -X GET "${1}/")
+echo "X-Originating-IP : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Originating-IP: 127.0.0.1" -X GET "${1}${2}")
+echo "X-Forwarded-For : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Forwarded-For: 127.0.0.1" -X GET "${1}${2}")
+echo "X-Remote-IP : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Remote-IP: 127.0.0.1" -X GET "${1}${2}")
+echo "X-Client-IP : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Client-IP: 127.0.0.1" -X GET "${1}${2}")
+echo "X-Host : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Host: 127.0.0.1" -X GET "${1}${2}")
+echo "X-Forwared-Host : "$(curl -k -s -o /dev/null -w "%{http_code}" -H "X-Forwared-Host: 127.0.0.1" -X GET "${1}${2}")
