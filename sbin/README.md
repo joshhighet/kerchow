@@ -16,6 +16,10 @@ _print the source code of any script in this directory_
 
 _use the cloudflared tunnel agent to ssh onto a target fqdn_
 
+## checkmsuser
+
+_check if a given email is associated with m365_
+
 ## chrome
 
 _run a command line chrome that prints full dom after js processing_
@@ -112,6 +116,10 @@ _clone a remote repo to local into current dir_
 
 _build a dataset of url's for cybercyber w/ urlscan _
 
+## getlargefiles
+
+_return big files on disk - biggest 5 by default unless arg1_
+
 ## getmstenant
 
 _get the m365 tenantid for a given domain_
@@ -119,6 +127,10 @@ _get the m365 tenantid for a given domain_
 ## getshbanner
 
 _fetch a ssh banner from a given server_
+
+## getwordlists
+
+_fetch a heap of wordlists for... science_
 
 ## gf
 
@@ -192,6 +204,10 @@ _show the headers returned by a URI (GET)_
 
 _python3 simple http server_
 
+## http-scanner
+
+_run a suite of url checks for the cyber ??_
+
 ## intip
 
 _try determine current internal ip_
@@ -220,6 +236,10 @@ _enrich an ip address with shodan & ipinfo_
 
 _list IP addresses in file_
 
+## iptables-clear
+
+_drop all iptables chains_
+
 ## kh
 
 _healthcheck a kubes service or all services_
@@ -247,6 +267,10 @@ _macos: update os, applications, homebrew etc_
 ## mgrep
 
 _best attempts grep for email_
+
+## mock-vaildate-endpoint
+
+_simple webserver to validate ownership checks (used for Splunk HEC with Meraki Local Analytics API)_
 
 ## myip
 
@@ -427,6 +451,10 @@ _colorful watch wrapper for localhost (local http develop) - takes port as $1_
 ## webspeed
 
 _website speed tests (response time analytics)_
+
+## wgetspider
+
+_spider/download a site using wget into './downloaded'_
 
 ## whatmydns
 
