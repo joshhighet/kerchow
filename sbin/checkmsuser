@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+# check if a given email is associated with m365
+import sys
+import json
+import logging
+import requests
+
+def main(email):
+    response = {"external_idp": False, "valid_account": False}
+    url = "https://login.microsoftonline.com/common/GetCredentialType"
+    body = '{"Username":"%s"}' % email
+    try:
+        req = requests.post(url, data=body)
+    except requests.exceptions.RequestException as e:
+        logging.error("error: %s" % e)
+        exit(1)
+    if bool(req.json()["IfExistsResult"]) is False:
+        response["valid_account"] = True
+    if bool(req.json()["IfExistsResult"]) is True:
+        response["valid_account"] = False
+    if "FederationRedirectUrl" in req.json()["Credentials"]:
+        response["external_idp"] = True
+    return response
+
+try:
+    email = sys.argv[1]
+except IndexError:
+    print("usage: check_msuser.py <email>")
+    exit()
+
+print(json.dumps(main(email), indent=2))
