@@ -81,9 +81,10 @@ jobcount = 1
 
 try:
     squery = 'port:9200 all:"elastic indices"'
-    # squery = 'port:9200 country:NZ,AU all:"elastic indices"'
+    squery = 'port:9200 country:NZ product:"Elastic"'
     logging.info('commencing w/ query: {}'.format(squery))
     results = api.search(squery, limit=500)
+    logging.info('query returned {} results'.format(results['total']))
     for result in results['matches']:
         logging.info('processing {} - job {} of {}'.format(result['ip_str'], jobcount, len(results['matches'])))
         jobcount += 1
