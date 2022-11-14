@@ -74,7 +74,7 @@ _convert epoch int to local datetime_
 
 ## erain
 
-_make emoji rain_
+_make emoji matrixrain_
 
 ## feedread-certnz
 
@@ -264,6 +264,10 @@ _macos: empty trash, clear system logs & clear download history from quarantine_
 
 _macos: update os, applications, homebrew etc_
 
+## mailcheck
+
+_lookup SPF & DMARC records for a domain_
+
 ## mgrep
 
 _best attempts grep for email_
@@ -366,7 +370,7 @@ _return a list of all online ransomwatch hosts_
 
 ## ransomwatch-groups
 
-_return a list of all online ransomwatch hosts_
+_return ransomwatch groups_
 
 ## ransomwatch-online
 
@@ -374,7 +378,7 @@ _return a list of all online ransomwatch hosts_
 
 ## ransomwatch-posts
 
-_return a list of all online ransomwatch hosts_
+_return a list of posts in ransomwatch_
 
 ## readme.zsh
 
