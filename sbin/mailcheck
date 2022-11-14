@@ -1,0 +1,33 @@
+#!/bin/bash
+# lookup SPF & DMARC records for a domain
+
+usenserv='1.1.1.1'
+
+if [ -z "$1" ]; then
+    echo "usage: mailcheck domain.tld"
+    exit 1
+fi
+domain=$1
+spf=$(dig @${usenserv} TXT ${domain} +short | grep -i spf)
+if [ -z "$spf" ]; then
+    echo "SPF: none"
+    HASPF=0
+else
+    echo "SPF: $spf"
+    HASPF=1
+fi
+dmarc=$(dig @${usenserv} +short TXT _dmarc.${domain} | grep 'v=DMARC1')
+if [ -z "$dmarc" ]; then
+    echo "DMARC: none"
+else
+    echo "DMARC: $dmarc"
+fi
+mx=$(dig @${usenserv} +short MX ${domain})
+if [ -z "$mx" ]; then
+    echo "MX: none"
+else
+    mx=$(echo "${mx}" | sed 's/^[0-9]* //')
+    for i in ${mx}; do
+        echo "MX: ${i}"
+    done
+fi
