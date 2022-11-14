@@ -1,5 +1,10 @@
 #!/bin/bash
-# return a list of all online ransomwatch hosts
+# return ransomwatch groups
 
-curl -sL ransomwhat.telemetry.ltd/groups \
-| jq
+if [ -n "$1" ]; then
+  curl -sL ransomwhat.telemetry.ltd/groups \
+  | jq -r ".[] | select(.name == \"$1\") | .locations[]"
+else
+  curl -sL ransomwhat.telemetry.ltd/groups \
+  | jq
+fi
