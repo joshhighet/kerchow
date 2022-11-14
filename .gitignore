@@ -5,3 +5,4 @@ telegram/config.ini
 telegram/anon.session
 sbin/urlscan-*.json
 get365tenants/fetch
+sbin/matrix
