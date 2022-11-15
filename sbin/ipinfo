@@ -1,16 +1,32 @@
 #!/bin/bash
-# enrich an ip address with shodan & ipinfo
+# basic cli netaddress enrichment with greynoise, virustotal & ipinfo
 
 if [ -z "$1" ]; then
-  echo "usage: ipinfo <ip>"
-  exit 1
+    echo "usage: ipinfo <ip>"
+    exit 1
+fi
+if [[ ! $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "usage: ipinfo <ip>"
+    exit 1
+fi
+curl -s ipinfo.io/${1} -H "User-Agent: curl/7.54" \
+| jq -r 'del(.readme, .region, .ip, .city, .org) | to_entries | map("\(.key) \(.value)") | .[]' \
+| column -t
+
+if [ -f ~/.virustotal ]; then
+  VTKEY=$(cat ~/.virustotal)
+  curl -s https://www.virustotal.com/api/v3/ip_addresses/$1 \
+  --header "x-apikey: $VTKEY" \
+  | jq -r '.data.attributes.last_analysis_stats | to_entries | map("\(.key) \(.value)") | .[]' \
+  | column -t
+  echo
+  curl -s https://www.virustotal.com/api/v3/ip_addresses/$1/resolutions \
+  --header "x-apikey: $VTKEY" \
+  | jq -r '.data[].attributes.host_name' \
+  | column -t
+  echo
 fi
 
-if [ -x "$(command -v curl)" ]; then
-  curl -s ipinfo.io/${1} -H "User-Agent: curl/7.54" | jq 'del(.readme)'
-  #curl -s ipinfo.io/1.1.1.1 -H "User-Agent: curl/7.54" | jq 'del(.readme) | del(.hostname) | del(.region) | del(.country) | del(.ip) | del(.city) | del(.org)'
-fi
-
-if [ -x "$(command -v shodan)" ]; then
-  shodan host ${1}
-fi
+curl -s https://api.greynoise.io/v3/community/$1 \
+| jq -r 'del(.message, .ip, .name) | to_entries | map("\(.key) \(.value)") | .[]' \
+| column -t
