@@ -6,4 +6,15 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-curl --silent "https://crt.sh?q=${1}&output=json" | jq '.[].name_value' -r | sort -u
+if [ "$1" = "-ip" ]; then
+    hostnames=$(timeout 10 curl --silent "https://crt.sh?q=${2}&output=json" | jq '.[].name_value' -r | sort -u | grep -v -e '^$' -e "^${2}$")
+    while read -r hostname; do
+        ip=$(timeout 10 host "$hostname" | grep 'has address' | awk '{print $4}')
+        if [ -n "$ip" ]; then
+            echo "$hostname:$ip"
+        fi
+    done <<< "$hostnames"
+    
+else
+    timeout 10 curl --silent "https://crt.sh?q=${1}&output=json" | jq '.[].name_value' -r | sort -u
+fi
