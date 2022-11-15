@@ -4,5 +4,5 @@
 if [ -n "$1" ]; then
   curl -sL ransomwhat.telemetry.ltd/posts | jq -r ".[] | select(.group_name == \"$1\") | .post_title"
 else
-  curl -sL ransomwhat.telemetry.ltd/posts | jq -r '.[] | .group_name + " - " + .post_title'
+  curl -sL ransomwhat.telemetry.ltd/posts | jq -r '.[] | [.group_name, .post_title] | @tsv' | sed 's/ /_/g' | column -t  
 fi
