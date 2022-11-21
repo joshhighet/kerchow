@@ -1,0 +1,14 @@
+#!/bin/bash
+# get dehashed results for an email
+
+if [ -z "$1" ]; then
+    echo "usage: getcreds email"
+    exit 1
+else
+    email=$1
+fi
+
+auth=$(cat ~/.dehashed)
+curl --silent -H 'Accept: application/json' -u ${auth} \
+https://api.dehashed.com/search?query=email:${email} \
+| jq

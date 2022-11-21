@@ -24,6 +24,18 @@ _check if a given email is associated with m365_
 
 _run a command line chrome that prints full dom after js processing_
 
+## ci-domain
+
+_open a domain in browser sessions for cybertasks_
+
+## ci-ip
+
+_open an ip in browser sessions for cyebrtasks_
+
+## ci-term
+
+_search for a string across places_
+
 ## colortest
 
 _test colors on a shell_
@@ -39,6 +51,10 @@ _fetch incoming ships and parse using beautifulsoup_
 ## curltor
 
 _wrapper for curling onionsites with a local/remote tor client over socks5_
+
+## dehashed-email
+
+_get dehashed results for an email_
 
 ## dex
 
@@ -204,6 +220,10 @@ _show the headers returned by a URI (GET)_
 
 _python3 simple http server_
 
+## http-responser
+
+_simple webserver to validate ownership checks (used for Splunk HEC with Meraki Local Analytics API)_
+
 ## http-scanner
 
 _run a suite of url checks for the cyber ??_
@@ -267,10 +287,6 @@ _lookup SPF & DMARC records for a domain_
 ## mgrep
 
 _best attempts grep for email_
-
-## mock-vaildate-endpoint
-
-_simple webserver to validate ownership checks (used for Splunk HEC with Meraki Local Analytics API)_
 
 ## myip
 

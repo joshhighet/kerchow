@@ -1,0 +1,15 @@
+#!/bin/bash
+# search for a string across places
+
+if [ -z "$1" ]; then
+    echo "usage: twittersearch term"
+    exit 1
+else
+    term=$1
+fi
+
+open "https://www.google.com/search?q=%22${term}%22"
+open https://twitter.com/search?q=${term}
+open https://trends.google.com/trends/explore?q=${term}&geo=US
+open https://github.com/search?q=${term}&type=code
+open https://grep.app/search?q=${term}
