@@ -47,7 +47,6 @@ async function logRequestToSplunk(request) {
             queryString: queryString,
             body: body,
             ip: ip,
-            statusCode: response.status,
             additionalHeaders: additionalHeaders
         }
     }
@@ -62,3 +61,4 @@ async function logRequestToSplunk(request) {
         body: JSON.stringify(event)
     })
 }
+c
