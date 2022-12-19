@@ -1,0 +1,9 @@
+#!/bin/bash
+# query google DNS server for all available record types
+
+if [ $# -ne 1 ]; then
+    echo "usage: digall <domain>"
+    exit 1
+fi
+
+dig @8.8.8.8 +short ANY $1
