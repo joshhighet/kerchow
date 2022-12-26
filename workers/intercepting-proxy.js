@@ -252,19 +252,19 @@ const isoCCresolver = {
 
 function getCountryName(isoCountryCode) {
     return isoCCresolver[isoCountryCode];
-} 
-  
+}
+
 addEventListener('fetch', event => {
     event.respondWith(handleRequest(event.request))
 })
 
 async function handleRequest(request) {
+    const response = await fetch(request)
     try {
-        await logRequestToSplunk(request)
+        await logRequestToSplunk(request, response)
     } catch (error) {
         console.error('failed transparent prefetch:', error)
     }
-    const response = await fetch(request)
     return new Response(response.body, {
         status: response.status,
         statusText: response.statusText,
@@ -272,7 +272,7 @@ async function handleRequest(request) {
     })
 }
 
-async function logRequestToSplunk(request) {
+async function logRequestToSplunk(request, response) {
     const splunkUrl = SPLUNK_HEC_URL
     const splunkToken = SPLUNK_HEC_TOKEN
     const method = request.method
@@ -282,26 +282,28 @@ async function logRequestToSplunk(request) {
     const userAgent = request.headers.get('user-agent')
     const cloudflareRayID = request.headers.get('cf-ray')
     const countryISO = request.headers.get('cf-ipcountry')
+    const cfCookie = request.headers.get('cookie')
     const countryName = getCountryName(countryISO)
     const queryString = new URL(url).search
-    const body = await request.text()
+    // const body = await request.text()
     const uriPath = new URL(url).pathname
-    const ip = request.headers.get('cf-connecting-ip') 
-    || request.headers.get('x-forwarded-for') 
-    || request.headers.get('x-real-ip')
+    const ip = request.headers.get('cf-connecting-ip') ||
+        request.headers.get('x-forwarded-for') ||
+        request.headers.get('x-real-ip')
     const additionalHeaders = {}
     const excludedHeaders = [
-        'referer', 
-        'user-agent', 
-        'cf-ray', 
-        'cf-connecting-ip', 
-        'x-forwarded-for', 
-        'x-real-ip', 
-        'cf-ipcountry', 
-        'cf-visitor', 
-        'x-forwarded-proto', 
-        'host'
-    ]    
+        'referer',
+        'user-agent',
+        'cf-ray',
+        'cf-connecting-ip',
+        'x-forwarded-for',
+        'x-real-ip',
+        'cf-ipcountry',
+        'cf-visitor',
+        'x-forwarded-proto',
+        'host',
+        'cookie'
+    ]
     for (let pair of request.headers.entries()) {
         if (!excludedHeaders.includes(pair[0])) {
             additionalHeaders[pair[0]] = pair[1]
@@ -318,14 +320,16 @@ async function logRequestToSplunk(request) {
             http_user_agent: userAgent,
             cf_rayID: cloudflareRayID,
             uri_query: queryString,
-            body: body,
+            cookie: cfCookie,
+            // body: body,
             src: ip,
             headers: additionalHeaders,
             countryISO: countryISO,
             country: countryName,
             url_domain: targetFQDN,
             url_length: url.length,
-            uri_path: uriPath
+            uri_path: uriPath,
+            status: response.status
         }
     };
     await fetch(splunkUrl, {
