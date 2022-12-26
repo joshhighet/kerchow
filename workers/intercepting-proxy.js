@@ -25,12 +25,13 @@ async function logRequestToSplunk(request) {
     const referrer = request.headers.get('referer')
     const userAgent = request.headers.get('user-agent')
     const cloudflareRayID = request.headers.get('cf-ray')
+    const countryISO = request.headers.get('cf-ipcountry')
     const queryString = new URL(url).search
     const body = await request.text()
     const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip')
     const additionalHeaders = {}
     for (let pair of request.headers.entries()) {
-        if (pair[0] !== 'referer' && pair[0] !== 'user-agent' && pair[0] !== 'cf-ray' && pair[0] !== 'cf-connecting-ip' && pair[0] !== 'x-forwarded-for' && pair[0] !== 'x-real-ip') {
+        if (pair[0] !== 'referer' && pair[0] !== 'user-agent' && pair[0] !== 'cf-ray' && pair[0] !== 'cf-connecting-ip' && pair[0] !== 'x-forwarded-for' && pair[0] !== 'x-real-ip' && pair[0] !== 'cf-ipcountry') {
             additionalHeaders[pair[0]] = pair[1]
         }
     }
@@ -47,7 +48,8 @@ async function logRequestToSplunk(request) {
             queryString: queryString,
             body: body,
             ip: ip,
-            additionalHeaders: additionalHeaders
+            additionalHeaders: additionalHeaders,
+            country: countryISO
         }
     };
     await fetch(splunkUrl, {
