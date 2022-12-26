@@ -17,8 +17,8 @@ async function handleRequest(request) {
 }
 
 async function logRequestToSplunk(request) {
-    const splunkUrl = 'https://replace-me/services/collector'
-    const splunkToken = 'replace-me'
+    const splunkUrl = SPLUNK_HEC_URL
+    const splunkToken = SPLUNK_HEC_TOKEN
     const method = request.method
     const url = request.url
     const targetFQDN = new URL(url).host
@@ -49,14 +49,14 @@ async function logRequestToSplunk(request) {
             ip: ip,
             additionalHeaders: additionalHeaders
         }
-    }
+    };
     await fetch(splunkUrl, {
         method: 'POST',
         headers: {
             'Authorization': `Splunk ${splunkToken}`,
             'Content-Type': 'application/json',
-            'CF-Access-Client-Id': 'replace-me.access',
-            'CF-Access-Client-Secret': 'replace-me'
+            'CF-Access-Client-Id': CF_CLIENTID,
+            'CF-Access-Client-Secret': CF_SECRET
         },
         body: JSON.stringify(event)
     })
