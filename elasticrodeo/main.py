@@ -21,9 +21,9 @@ import shodan
 logging.basicConfig(level=logging.INFO)
 
 try:
-    SHODAN_API_KEY = open(os.path.expanduser("~/.shodan")).read().strip()
+    SHODAN_API_KEY = open(os.path.expanduser("~/.shodankey")).read().strip()
 except FileNotFoundError:
-    logging.critical("authstr missing - fetch a key from https://account.shodan.io and place it in ~/.shodan")
+    logging.critical("authstr missing - fetch a key from https://account.shodan.io and place it in ~/.shodankey")
     sys.exit(1)
 
 api = shodan.Shodan(SHODAN_API_KEY)
