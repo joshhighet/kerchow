@@ -61,4 +61,3 @@ async function logRequestToSplunk(request) {
         body: JSON.stringify(event)
     })
 }
-c
