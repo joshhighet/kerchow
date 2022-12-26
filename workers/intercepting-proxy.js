@@ -28,10 +28,24 @@ async function logRequestToSplunk(request) {
     const countryISO = request.headers.get('cf-ipcountry')
     const queryString = new URL(url).search
     const body = await request.text()
-    const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip')
+    const ip = request.headers.get('cf-connecting-ip') 
+    || request.headers.get('x-forwarded-for') 
+    || request.headers.get('x-real-ip')
     const additionalHeaders = {}
+    const excludedHeaders = [
+        'referer', 
+        'user-agent', 
+        'cf-ray', 
+        'cf-connecting-ip', 
+        'x-forwarded-for', 
+        'x-real-ip', 
+        'cf-ipcountry', 
+        'cf-visitor', 
+        'x-forwarded-proto', 
+        'host'
+    ]    
     for (let pair of request.headers.entries()) {
-        if (pair[0] !== 'referer' && pair[0] !== 'user-agent' && pair[0] !== 'cf-ray' && pair[0] !== 'cf-connecting-ip' && pair[0] !== 'x-forwarded-for' && pair[0] !== 'x-real-ip' && pair[0] !== 'cf-ipcountry') {
+        if (!excludedHeaders.includes(pair[0])) {
             additionalHeaders[pair[0]] = pair[1]
         }
     }
