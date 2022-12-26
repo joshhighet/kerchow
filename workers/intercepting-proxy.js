@@ -28,6 +28,7 @@ async function logRequestToSplunk(request) {
     const countryISO = request.headers.get('cf-ipcountry')
     const queryString = new URL(url).search
     const body = await request.text()
+    const uriPath = new URL(url).pathname
     const ip = request.headers.get('cf-connecting-ip') 
     || request.headers.get('x-forwarded-for') 
     || request.headers.get('x-real-ip')
@@ -54,16 +55,19 @@ async function logRequestToSplunk(request) {
         host: targetFQDN,
         source: 'logd-worker',
         event: {
-            method: method,
+            http_method: method,
             url: url,
-            referrer: referrer,
-            userAgent: userAgent,
-            cloudflareRayID: cloudflareRayID,
-            queryString: queryString,
+            http_referrer: referrer,
+            http_user_agent: userAgent,
+            cf_rayID: cloudflareRayID,
+            uri_query: queryString,
             body: body,
-            ip: ip,
-            additionalHeaders: additionalHeaders,
-            country: countryISO
+            src: ip,
+            headers: additionalHeaders,
+            country: countryISO,
+            url_domain: targetFQDN,
+            url_length: url.length,
+            uri_path: uriPath
         }
     };
     await fetch(splunkUrl, {
