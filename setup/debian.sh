@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 if [ "$(uname)" != "Linux" ]; then
   echo "script is for linux"
   exit 1
