@@ -1,0 +1,15 @@
+#!/bin/bash
+# get client subnet & dns resolver from ip-api dot com
+
+# dns key - the address of the DNS server the client used
+# edns key - the address of the client
+# if the DNS server did not send the client subnet, edns == null
+
+ednsdata=$(curl -sL http://edns.ip-api.com/json)
+
+if [ -z "$ednsdata" ]; then
+	echo "edns: no data"
+	exit 1
+else
+	echo "$ednsdata" | jq
+fi
