@@ -21,7 +21,7 @@ if [ -f ~/.kerchow-hosts ]; then
     hosts=($(cat ~/.kerchow-hosts))
     hosts=(all "${hosts[@]}")
 else
-    bad "config file missing, create ~/.kerchow-hosts with one hostname per line."
+    error "config file missing, create ~/.kerchow-hosts with one hostname per line."
     exit 1
 fi
 
