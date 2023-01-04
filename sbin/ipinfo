@@ -9,6 +9,18 @@ if [[ ! $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     echo "usage: ipinfo <ip>"
     exit 1
 fi
+
+response=$(curl -s "https://onionoo.torproject.org/details?search=$1")
+relaydata=$(echo "$response" | jq -r '.relays')
+bridgedata=$(echo "$response" | jq -r '.bridges')
+if [ "$relaydata" = "[]" ] && [ "$bridgedata" = "[]" ]; then
+  echo
+else
+    echo "this is an advertised Tor node"
+    echo "https://metrics.torproject.org/rs.html#search/$1"
+    echo
+fi
+
 curl -s ipinfo.io/${1} -H "User-Agent: curl/7.54" \
 | jq -r 'del(.readme, .region, .ip, .city, .org) | to_entries | map("\(.key) \(.value)") | .[]' \
 | column -t
