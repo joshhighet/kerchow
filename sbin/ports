@@ -1,9 +1,4 @@
 #!/bin/bash
-# shows running service network interaction (listening ports), macos only
-
-if [[ "$OSTYPE" != "darwin"* ]]; then
-  echo "only works on macos sorry"
-  exit 1
-fi
+# shows running service network interaction (listening ports)
 
 sudo lsof -iTCP -sTCP:LISTEN -n -P
