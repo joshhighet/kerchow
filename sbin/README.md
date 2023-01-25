@@ -60,6 +60,10 @@ _get dehashed results for an email_
 
 _get a shell in the latest started local container_
 
+## digall
+
+_query google DNS server for all available record types_
+
 ## dim
 
 _list all docker images on current system_
@@ -83,6 +87,10 @@ _kill latest or specified docker container_
 ## dup
 
 _advanced shortcut for docker-compose up_
+
+## edns
+
+_get client subnet & dns resolver from ip-api dot com_
 
 ## epoch
 
@@ -220,7 +228,7 @@ _show the headers returned by a URI (GET)_
 
 _python3 simple http server_
 
-## http-responser
+## http-responder
 
 _simple webserver to validate ownership checks (used for Splunk HEC with Meraki Local Analytics API)_
 
@@ -358,7 +366,7 @@ _shortcut to install python3 deps from requirements.txt_
 
 ## ports
 
-_shows running service network interaction (listening ports), macos only_
+_shows running service network interaction (listening ports)_
 
 ## pping
 
