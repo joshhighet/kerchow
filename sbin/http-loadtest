@@ -1,0 +1,15 @@
+#!/bin/bash
+# make requests with apachabench
+
+if [ -z "$1" ]; then
+    echo "usage: http-loadtest host [number of requests]"
+    exit 1
+fi
+
+if [ -z "$2" ]; then
+    requests=1000
+else
+    requests=$2
+fi
+
+ab -n $requests -c 50 -s 90 $1
