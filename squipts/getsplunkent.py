@@ -11,8 +11,9 @@ try:
 except ImportError as e:
     logging.error('missing module: %s', e)
     exit(1)
+# https://www.splunk.com/en_us/download/previous-releases.html
 releases_data = requests.get(
-    'https://www.splunk.com/en_us/download/previous-releases.html',
+    'https://www.splunk.com/en_us/download/splunk-enterprise.html',
     timeout=10
 )
 if releases_data.status_code != 200:
