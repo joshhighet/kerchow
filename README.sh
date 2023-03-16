@@ -27,7 +27,7 @@ do
       echo "## ${file}" >> ../README.md
       echo "" >> ../README.md
       description=`echo ${definition} | sed 's/# //g'` >> ../README.md
-      echo "_${description}_" >> ../README.md
+      echo "[:link:](sbin/${file}) _${description}_" >> ../README.md
       echo "" >> ../README.md
     fi
   fi
