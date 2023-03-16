@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # initialises paths to effectivley use scripts within joshhighet/kerchow
 
 set -e #-x
@@ -19,5 +19,5 @@ if ! grep "kerchow/sbin" ~/.zshrc &>/dev/null ; then
     echo "export PATH=${location}/sbin:\$PATH" >> ~/.zshrc
     echo "added, reopen your terminal or introduce into current session with 'source ~/.zshrc'"
 else
-    echo "computer says no - have you already setup?"
+    echo "computer says no - have you already set this up?"
 fi

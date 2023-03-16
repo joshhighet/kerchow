@@ -1,212 +1,507 @@
-# useful scripts, tools n' shortcuts
+# kerchow
+
+this is a collection of shortcuts that I use to do things faster in a schelle
+
+they are intended to be added to your `PATH` to shorthand things.
+> the `setup.sh` script will automate the addition of these to your `.zshrc` file
+
+echo script is noted below along with a brief description of what it does
 
 ---
 
-### install the [`Brewfile`](setup/Brewfile)
+## boing
 
-##### _https://github.com/Homebrew/homebrew-bundle_
+_make bebop noise_
 
-```shell
-brew bundle
-```
+## cats
 
-### speedtest over a shell session
+_print the source code of any script in this directory_
 
-```shell
-yes | pv | ssh user@dest "cat >/dev/null"
-```
+## certinfo
 
-### flush git history
+_return a jsonified str of the x509 for a given url_
 
-```shell
-git checkout --orphan release
-git add -A
-git commit
-git branch -D main
-git branch -m main
-git push -f origin main
-git gc --aggressive --prune=all
-```
+## cfssh
 
-### proxmark setup
+_use the cloudflared tunnel agent to ssh onto a target fqdn_
 
-###### [_RfidResearchGroup/proxmark3/Mac-OS-X-Homebrew-Installation-Instructions.md_](https://github.com/RfidResearchGroup/proxmark3/blob/master/doc/md/Installation_Instructions/Mac-OS-X-Homebrew-Installation-Instructions.md)
+## checkmsuser
 
-```shell
-brew install xquartz
-brew tap RfidResearchGroup/proxmark3
-brew install proxmark3
-```
+_check if a given email is associated with m365_
 
-# useful regex
+## chrome
 
-### email
+_run a command line chrome that prints full dom after js processing_
 
-```
-[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}
-```
+## ci-domain
 
-### domain
+_open a domain in browser sessions for cybertasks_
 
-```
-(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}\.?$)
-```
+## ci-ip
 
-### ipv4
+_open an ip in browser sessions for cyebrtasks_
 
-```
-"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
-[1-2]?[0-9]?[0-9]\.[1-2]?[0-9]?[0-9]\.[1-2]?[0-9]?[0-9]\.[1-2]?[0-9]?[0-9]
-```
+## ci-term
 
-### ipv6 lol
+_search for a string across places_
 
-```
-^(?:(?:[0-9A-Fa-f]{1,4}:){6}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::(?:[0-9A-Fa-f]{1,4}:){5}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){4}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){3}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,2}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){2}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,4}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(?:(?:[0-9A-Fa-f]{1,4}:){,6}[0-9A-Fa-f]{1,4})?::)(?:%25(?:[A-Za-z0-9\\-._~]|%[0-9A-Fa-f]{2})+)?$
-"(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"
-```
+## colortest
 
-# recon
+_test colors on a shell_
 
-### directory enumerate a list of subdomains
+## crtsh
 
-```shell
-python3 dirsearch/dirsearch.py \
---follow-redirects \
---user-agent="${useragent}" \
---json-report=dirsearch-report.json \
---recursive \
---recursive-level-max=2 \
---suppress-empty \
---extensions-list \
---exclude-status=400 \
---request-by-hostname \
---url-list=subdomains.txt \
---wordlist=db/dicc.txt
-```
+_use the crt.sh api to lookup a domain for certificates_
 
-### tcp syn/ack scan a list of ip addresses
+## cruises
 
-```shell
-masscan \
---output-format JSON \
---output-filename masscan.json \
---ports 0-65535 \
---rate=10000 \
---interactive \
---wait 20 \
---banners \
---http-user-agent "${useragent}" \
--iL ips.txt
-```
+_fetch incoming ships and parse using beautifulsoup_
 
-### get unique site pages cached by wayback machine
+## curltor
 
-```shell
-waybackpack "${weblocation}" \
---uniques-only \
---list \
---follow-redirects \
---user-agent "${useragent}" \
-| tee waybacksites.txt
-```
+_wrapper for curling onionsites with a local/remote tor client over socks5_
 
-### get on http headers presented by an origin (method GET)
+## dehashed-email
 
-```shell
-securityheaders ${weblocation} --json | tee securityheaders.json
-```
+_get dehashed results for an email_
 
-### use cloud enum to list enumerate URL's for cloud storage (use notable strings)
+## dex
 
-```shell
-python3 cloud_enum/cloud_enum.py 
---nameserver `cat resolvers.txt | head -n 1` \
---keyfile ${cloudenum_key} \
---logfile cloud_enum.log
-```
+_get a shell in the latest started local container_
 
-### clone site with httrack
+## digall
 
-```shell
-httrack "${weblocation}" --user-agent "${useragent}" --path "${weblocation}"
-```
+_query google DNS server for all available record types_
 
-### sherlock - social media presence enumeration
+## dim
 
-```shell
-python3 sherlock/sherlock "${string}" \
---rank --print-found --output sherlock.txt
-```
+_list all docker images on current system_
 
+## dol
 
-### establish if a WAF is in place
+_get logs of the latest or specified container_
 
-```shell
-wafw00f ${weblocation} --verbose \
---output=wafw00f.json
-```
+## down
 
-### webtech identifies technology stacks in use
+_take down the current dir docker compose instance_
 
-```shell
-webtech --json --urls="${weblocation}" \
---user-agent="${useragent}" \
-| tee webtech.json.tmp
+## dps
 
-cat webtech.json.tmp | jq --raw-output | webtech.json
-rm webtech.json.tmp
-```
+_list current running docker containers_
 
-### using securityheaders.io, get a report of http headers presented by origin
+## drm
 
-```
-securityheaders ${domain} --json \
-| tee securityheaders.json
-```
+_kill latest or specified docker container_
 
-### use fierce to discover neighbour assets
+## dup
 
-```shell
-fierce --dns-file resolvers.txt \
---domain ${ip} --search ${ip} \
-| tee fierce.txt
-```
+_advanced shortcut for docker compose up_
 
-### OWASP amass - subdomain enumeration engine
+## edns
 
-```shell
-./amass enum -active -src \
--ip -v -brute -rf resolvers.txt \
--min-for-recursive 2 -json amass.json -d "${domain}"
-```
+_get client subnet & dns resolver from ip-api dot com_
 
-### dnstwist - rogue domain permutation engine
+## epoch
 
-```shell
-dnstwist "${domain}" \
---registered \
---mxcheck \
---format json \
---nameservers 1.1.1.1,8.8.8.8 \
---useragent "${useragent}" \
-| tee dnstwist.json
-```
+_convert epoch int to local datetime_
 
-### reverse dns enumeration
+## erain
 
-```shell
-python3 HostHunter/hosthunter.py \
---format csv --output hosthunter-subdomains.txt ips.txt
-```
+_make emoji matrixrain_
 
-### get resolutions across all discovered subdomains
+## feedread-certnz
 
-```shell
-massdns/bin/massdns subdomains.txt \
---resolvers resolvers.txt \
--o J --outfile massdns.json.tmp
+_show the latest posts on the certnz advisories page_
 
-cat massdns.json.tmp | jq --raw-output | tee massdns.json
-rm massdns.json.tmp
-```
+## feedread-ncscnz
+
+_show the latest posts on the ncsc nz advisories page_
+
+## finfo
+
+_quickly retrieve get file info and hashes_
+
+## fixairplay
+
+_fix a broken airplay2 session_
+
+## flushdns
+
+_flush dns cache on macOS (monterey)_
+
+## freewilly
+
+_clean all docker images and networks_
+
+## ga
+
+_git add shortcut for all files or the specified ones_
+
+## gb
+
+_list current git branches - if given var1 then change to or create that branch name_
+
+## gc
+
+_clone a remote repo to local into current dir_
+
+## get-urlscansubs
+
+_build a dataset of url's for cybercyber w/ urlscan_
+
+## getlargefiles
+
+_return big files on disk - biggest 5 by default unless arg1_
+
+## getmstenant
+
+_get the m365 tenantid for a given domain_
+
+## getshbanner
+
+_fetch a ssh banner from a given server_
+
+## getwordlists
+
+_fetch a heap of wordlists for... science_
+
+## gf
+
+_show git tracked changes of a file_
+
+## ginfo
+
+_get basic into on the git repo you are within (upstream url, description)_
+
+## git-updatesubmodules
+
+_update all submodules within a git project recursivley_
+
+## gitcreds
+
+_use trufflehog to search the current working dir for creds_
+
+## gitgetcontributors
+
+_return a list of emails that have contributed to a git project_
+
+## github-rm-workflowruns
+
+_will go through a github repository and remove all previous workflow data_
+
+## gitsubrm
+
+_remove a submodule from a git repo_
+
+## gitsubs
+
+_initalise and update submodules within a git repository (git submodule init & update)_
+
+## gl
+
+_git pull the updates of the current dir structure_
+
+## google
+
+_googles something in default browers, macos only_
+
+## gp
+
+_auto commit and push changes. var1 can be commit message or it will prompt for one. dont use spaces_
+
+## grepapp
+
+_search for a string in public source repositories with grep.app_
+
+## greps
+
+_search the scripts directory for keyword_
+
+## gs
+
+_shortcut git status info_
+
+## gsa
+
+_shortcut git submodule add_
+
+## hackertarget
+
+_lookup assets with hackertarget for a given domain name_
+
+## hashdir
+
+_show sha2 checksums for all files within a directory (full depth)_
+
+## headers
+
+_show the headers returned by a URI (GET)_
+
+## http
+
+_python3 simple http server_
+
+## http-loadtest
+
+_make requests with apachabench_
+
+## http-responder
+
+_simple webserver to validate ownership checks (used for Splunk HEC with Meraki Local Analytics API)_
+
+## http-scanner
+
+_run a suite of url checks for the cyber ga gb gc gf gl gp gs kh ns wa_
+
+## intip
+
+_try determine current internal ip_
+
+## ipgrep
+
+_search input for ipv4 and ipv6 addresses_
+
+## ipgrepv4
+
+_read stdin and list any IPv4 addresses_
+
+## ipgrepv6
+
+_read stdin and list any IPv6 addresses_
+
+## ipi
+
+_query IP API for any IP details - beware, ip-api believe TLS is a premium feature_
+
+## ipinfo
+
+_basic cli netaddress enrichment with greynoise, virustotal & ipinfo_
+
+## iptables-clear
+
+_drop all iptables chains_
+
+## kh
+
+_healthcheck a kubes service or all services_
+
+## kserve
+
+_list all defined kubernetes deployments_
+
+## kstart
+
+_scale a kuberenetes service up to one or bring all up if unspecified_
+
+## l
+
+_list current directory_
+
+## maclean
+
+_macos: empty trash, clear system logs & clear download history from quarantine_
+
+## macupd
+
+_macos: update os, applications, homebrew etc_
+
+## mailcheck
+
+_lookup SPF & DMARC records for a domain_
+
+## mgrep
+
+_best attempts grep for email_
+
+## myip
+
+_return my current IP address_
+
+## n
+
+_nano shortcut_
+
+## npmaudit
+
+_auto audit the local package.json and produce 'report.html' output_
+
+## ns
+
+_edit source code of any script in this directory. use any var2 to prevent auto git pull/push_
+
+## onionscan
+
+_netscan an onion address with proxychains, jsonified output_
+
+## openh
+
+_open an fqdn in a browser_
+
+## osq-usb
+
+_use osquery to return a list of attached removable usb devices_
+
+## osv
+
+_return a known OS version string_
+
+## ouilookup
+
+_lookups a mac address in attempt to vendor correlate_
+
+## pans
+
+_list valid NZ PANs forever or until var1=numberToReturn_
+
+## pihole-disable
+
+_disable pihole filtering_
+
+## pihole-enable
+
+_enable pihole filtering_
+
+## pihole-lastblock
+
+_show the last domain blocked by pihole_
+
+## pihole-stat
+
+_get basic stats of a pihole instance from the php api_
+
+## pireq
+
+_shortcut to install python3 deps from requirements.txt_
+
+## ports
+
+_shows running service network interaction (listening ports)_
+
+## pping
+
+_pingsweep (or tcp chek if port provided as arg1)_
+
+## projectsonar
+
+_use the dnsgrep api provided by bufferover.run to lookup a domain_
+
+## pubkey
+
+_print my public keys_
+
+## pullallrepos
+
+_enter into all folders within the current working directory - if the folder is a git repo pull the latest from remote_
+
+## ransomwatch-groupcounts
+
+_return a list of all online ransomwatch hosts_
+
+## ransomwatch-groups
+
+_return ransomwatch groups_
+
+## ransomwatch-online
+
+_return a list of all online ransomwatch hosts_
+
+## ransomwatch-posts
+
+_return a list of posts in ransomwatch_
+
+## redirect
+
+_follow a URL and return the destination after redirects_
+
+## reversewhois
+
+_perform reverse whois lookup using the viewdns.info api_
+
+## searchcode
+
+_search for a string in public source repositories with searchcode_
+
+## servicescan
+
+_use nmap to run a service identification scan (ip and optional port)_
+
+## shodanme
+
+_shodan your current egress address_
+
+## showdupes
+
+_show duplicate lines within a file_
+
+## sonarscan
+
+_scan your current dir for sonar cloud_
+
+## ssh-nokey
+
+_ssh to rogue hosts without presenting a local key_
+
+## sshmd5
+
+_generate an md5 signature of a ssh server_
+
+## sssh
+
+_multi-host ssh controller_
+
+## threatcrowd
+
+_use the threatcrowd api to lookup a domain_
+
+## tor-getLatestConsensus
+
+_fetch the latest consensus file from metrics.torproject.org for processing_
+
+## tor-readyyet
+
+_this checks if a tor circuit has been completed by polling the controlport_
+
+## torexits-jsonarray
+
+_returns a JSON array of public Tor exit nodes_
+
+## tornz
+
+_return overview on tor bridges, exits & open relays [nz netspace]_
+
+## urld
+
+_decode a url_
+
+## utc
+
+_list given date as UTC time_
+
+## validpan
+
+_check if a given credit card number (var1) passes mod10 checksum_
+
+## wa
+
+_colorful watch wrapper for localhost (local http develop) - takes port as $1_
+
+## webspeed
+
+_website speed tests (response time analytics)_
+
+## wgetspider
+
+_spider/download a site using wget into './downloaded'_
+
+## whatmydns
+
+_show current dns servers_
+
+## whatport
+
+_search for common port usages (i.e 80 is http)_
+
+## zonetransfer
+
+_attempt an DNS AXFR (zone transfer) with dig_
+
