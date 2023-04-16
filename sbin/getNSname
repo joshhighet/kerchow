@@ -1,0 +1,3 @@
+#!/bin/bash
+# fetch the name of a DNS resolver with a CHAOS (CH) query
+dig @$1 hostname.bind TXT CHAOS +short

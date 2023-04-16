@@ -1,11 +1,6 @@
 #!/bin/zsh
 # disable pihole filtering
 
-if [[ -z $(dig +short pi.hole) ]]; then
-  echo "error: could not resolve pi.hole"
-  exit 1
-fi
-
 if [ ! -f ~/.dnsauth ]; then
   echo "error: pihole api access key missing from ~/.dnsauth"
   exit 1
@@ -18,6 +13,6 @@ if [ -z "$1" ]; then
   exit 1
 fi 
 
-pihole_apibase="http://pi.hole/admin/api.php"
+pihole_apibase="http://pihole.nameserv/admin/api.php"
 
 curl -s "${pihole_apibase}?disable=${1}&auth=${authkey}" | jq

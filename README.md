@@ -149,6 +149,10 @@ each script is noted below along with a brief description of what it does
 
 [:link:](sbin/get-urlscansubs) _build a dataset of url's for cybercyber w/ urlscan_
 
+## getNSname
+
+[:link:](sbin/getNSname) _fetch the name of a DNS resolver with a CHAOS (CH) query_
+
 ## getlargefiles
 
 [:link:](sbin/getlargefiles) _return big files on disk - biggest 5 by default unless arg1_
