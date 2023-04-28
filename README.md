@@ -189,6 +189,10 @@ each script is noted below along with a brief description of what it does
 
 [:link:](sbin/gitgetcontributors) _return a list of emails that have contributed to a git project_
 
+## github-get-all-repo-for-profile
+
+[:link:](sbin/github-get-all-repo-for-profile) _print all the public repositories for a given github username_
+
 ## github-rm-workflowruns
 
 [:link:](sbin/github-rm-workflowruns) _will go through a github repository and remove all previous workflow data_

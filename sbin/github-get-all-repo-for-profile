@@ -1,0 +1,10 @@
+#!/bin/bash
+# print all the public repositories for a given github username
+
+if [ $# -ne 1 ]; then
+    echo "usage: github-get-all-repo-for-profile <github username>"
+    exit 1
+fi
+
+curl -s "https://api.github.com/users/$1/repos?per_page=1000" \
+| jq '.[].html_url' -r
