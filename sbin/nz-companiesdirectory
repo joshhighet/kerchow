@@ -1,0 +1,14 @@
+#!/bin/bash
+# search the NZ companies directory
+
+if [ $# -ne 1 ]; then
+    echo "usage: nz-companiesdirectory <company name>"
+    exit 1
+fi
+
+if [ "$(uname)" != "Darwin" ]; then
+    echo "this script only runs on macos"
+    exit 1
+fi
+
+open "https://app.companiesoffice.govt.nz/companies/app/ui/pages/companies/search?mode=standard&type=entities&advancedPanel=true&entityTypes=ALL&entityStatusGroups=ALL&q=${1}"

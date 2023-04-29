@@ -337,6 +337,10 @@ each script is noted below along with a brief description of what it does
 
 [:link:](sbin/ns) _edit source code of any script in this directory. use any var2 to prevent auto git pull/push_
 
+## nz-companiesdirectory
+
+[:link:](sbin/nz-companiesdirectory) _search the NZ companies directory_
+
 ## onionscan
 
 [:link:](sbin/onionscan) _netscan an onion address with proxychains, jsonified output_
