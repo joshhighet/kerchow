@@ -1,0 +1,21 @@
+#!/bin/bash
+# report a URL to phish.report
+
+set -e
+
+authkey=$(cat ~/.phishreport)
+
+if [ -z "${1}" ]; then
+  echo "usage: phishreport <url>"
+  exit 1
+fi
+
+response=$(curl --silent \
+"https://phish.report/api/v0/cases" \
+-X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ${authkey}" \
+-d '{"url":"'${1}'"}')
+
+echo $response | jq
+echo 'https://phish.report/cases/'$(echo $response | jq -r '.id')
