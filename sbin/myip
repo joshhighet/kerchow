@@ -1,4 +1,6 @@
 #!/bin/bash
 # return my current IP address
 
-curl -s https://checkip.amazonaws.com
+curl -s ipinfo.io \
+-H "User-Agent: curl" \
+| jq -r '.country + "/" + .city + " - " + .org + " (" + .ip + ")"'
