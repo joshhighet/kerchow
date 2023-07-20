@@ -1,5 +1,5 @@
 #!/bin/zsh
-# use the crt.sh api to lookup a domain for certificates
+# use the crt.sh ct api to discover other web services for an apex domain
 
 if [ -z "$1" ]; then
     echo "usage: crtsh <domain>"

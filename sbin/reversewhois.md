@@ -1,0 +1,23 @@
+➜  labs reversewhois domains@apple.com
+applecare.pro
+applecare.promo
+applecare.qpon
+applecare.quebec
+applecare.rent
+applecare.review
+applecare.services
+applecare.site
+applecare.soy
+applecare.space
+applecare.store
+applecare.study
+applecare.sucks
+applecare.sydney
+applecare.taipei
+applecare.tech
+applecare.tel
+applecare.tokyo
+applecare.university
+applecare.us
+applecare.vegas
+applecare.wang

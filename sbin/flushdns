@@ -1,5 +1,5 @@
 #!/bin/bash
-# flush dns cache on macOS (monterey)
+# flush dns cache on macOS
 
 if [[ $(uname -s) != "Darwin" ]]; then
   echo "script for macOS"

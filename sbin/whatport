@@ -1,9 +1,11 @@
 #!/bin/bash
-# search for common port usages (i.e 80 is http)
+# search for common port usages (what does port 763 correspond to)
 
 if [ -z "$1" ]; then
     echo "usage: whatport <port>"
     exit 1
 fi
 
-curl -s "https://isc.sans.edu/api/port/${1}?json" -H "User-Agent: curl/7.54" | jq .services
+curl -s "https://isc.sans.edu/api/port/${1}?json" \
+-H "User-Agent: curl/7.54" \
+| jq .services

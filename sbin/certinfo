@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# return a jsonified str of the x509 for a given url
+# returns x509 data in json for a given url
 
 import sys
 import json
@@ -9,7 +9,12 @@ if len(sys.argv) < 2:
     print("usage: certinfo <url>")
     sys.exit(1)
 
-with requests.get(sys.argv[1], stream=True) as response:
+if sys.argv[1].startswith("http"):
+    in1 = sys.argv[1]
+else:
+    in1 = "https://" + sys.argv[1]    
+
+with requests.get(in1, stream=True) as response:
     certificate_info = response.raw.connection.sock.getpeercert()
     subject = dict(x[0] for x in certificate_info['subject'])
     issuer = dict(x[0] for x in certificate_info['issuer'])

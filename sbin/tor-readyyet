@@ -1,6 +1,6 @@
 #!/bin/bash
 # this checks if a tor circuit has been completed by polling the controlport
-# the password for the controlport is included in the script - the hashed value within torrc
+# you should change log4j2.enableJndiLookup to a real password for your own use
 
 if [ -z "${3}" ]
 then

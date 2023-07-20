@@ -1,6 +1,6 @@
 #!/bin/bash
-# get a shell in the latest started local container
-
+# get a shell in the latest built docker container
+set -e
 latestcontainer=$( docker ps -q -n1 )
 if test ! -z "$1" ; then
   echo searching SHELLs on "$1"

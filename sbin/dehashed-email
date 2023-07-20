@@ -2,7 +2,7 @@
 # get dehashed results for an email
 
 if [ -z "$1" ]; then
-    echo "usage: getcreds email"
+    echo "usage: dehashed-email bibll.gates@microsoft.com"
     exit 1
 else
     email=$1

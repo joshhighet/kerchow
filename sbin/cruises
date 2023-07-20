@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# fetch incoming ships and parse using beautifulsoup
-# using argparse either provide a json or csv output
+# fetch incoming auckland port ship data
 
 import requests
 import bs4

@@ -1,5 +1,5 @@
 #!/bin/bash
-# fetch a heap of wordlists for... science
+# fetch a TON of wordlists for... science
 
 set -e
 output_dir="/tmp/wordlists"

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# check if a given email is associated with m365
+# check if a given email address has a connected m365 account
+
 import sys
 import json
 import logging

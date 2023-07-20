@@ -14,5 +14,5 @@ for i in $(seq $((panlen - 1)) -1 0); do
   ((sum+=digit))
 done
 
-[ $((sum % 10)) -eq 0 ] || exit 1
+[ $((sum % 10)) -eq 0 ] || echo "luhn Mod10 check Fails" && exit 1
 echo "Luhn Mod10 Check Passes"

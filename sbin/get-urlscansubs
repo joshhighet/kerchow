@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# build a dataset of url's for cybercyber w/ urlscan 
+# build datasets of active url's from urlscan 
 
 import requests
 import json

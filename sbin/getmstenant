@@ -1,5 +1,5 @@
 #!/bin/bash
-# get the m365 tenantid for a given domain
+# get the microsoft 365 tenantid for a given domain
 
 # require $1
 if [ -z "$1" ]; then

@@ -1,5 +1,5 @@
 #!/bin/bash
-# attempt an DNS AXFR (zone transfer) with dig
+# attempt an DNS AXFR (zone transfer) with dig on arg1
 
 if [ -z "${1}" ]; then
   echo "usage: zonetransfer <domain>"

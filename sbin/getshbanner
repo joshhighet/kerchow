@@ -3,7 +3,7 @@
 
 host="${1}"
 if [ -z "$host" ]; then
-    echo "usage: $0 <server>"
+    echo "usage: getshbanner <server>"
     exit 1
 fi
 

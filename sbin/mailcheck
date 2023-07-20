@@ -1,5 +1,5 @@
 #!/bin/bash
-# lookup SPF & DMARC records for a domain
+# lookup SPF, MX & DMARC records for a domain
 
 usenserv='1.1.1.1'
 

@@ -1,3 +1,4 @@
+➜  labs cats cats
 #!/bin/bash
 # print the source code of any kerchow shortscripts
 

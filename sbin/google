@@ -1,5 +1,5 @@
 #!/bin/bash
-# googles something in default browers, macos only
+# googles arg1 in the default brower/handler for http, macos only
 
 if [[ "$OSTYPE" != "darwin"* ]]; then
   echo "only works on macos sorry"

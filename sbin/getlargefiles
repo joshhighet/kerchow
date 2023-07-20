@@ -1,5 +1,5 @@
 #!/bin/bash
-# return big files on disk - biggest 5 by default unless arg1
+# returns a list of the largest files on disk (top 5 unless arg1 set)
 
 if [ -n "${1}" ]; then
     limit="${1}"

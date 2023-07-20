@@ -1,6 +1,11 @@
 #!/bin/zsh
 # fix a broken airplay2 session
 
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  echo "macos only"
+  exit 1
+fi
+
 # core_audio_pid=$(ps -ax | grep 'coreaudiod' | grep 'sbin' |awk '{print $1}')
 core_audio_pid=$(pgrep coreaudio)
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# query google DNS server for all available record types
+# perform a dig ANY lookup using google DNS for a given domain
 
 if [ $# -ne 1 ]; then
     echo "usage: digall <domain>"

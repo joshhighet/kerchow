@@ -1,5 +1,5 @@
 #!/bin/bash
-# remove a submodule from a git repo
+# remove a git submodule from a git repo
 
 set -e
 

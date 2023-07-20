@@ -1,0 +1,26 @@
+➜  labs ipi 1.1.1.1
+{
+  "status"       : "success",
+  "continent"    : "Oceania",
+  "continentCode": "OC",
+  "country"      : "Australia",
+  "countryCode"  : "AU",
+  "region"       : "QLD",
+  "regionName"   : "Queensland",
+  "city"         : "South Brisbane",
+  "district"     : "",
+  "zip"          : "4101",
+  "lat"          : -27.4766,
+  "lon"          : 153.0166,
+  "timezone"     : "Australia/Brisbane",
+  "offset"       : 36000,
+  "currency"     : "AUD",
+  "isp"          : "Cloudflare, Inc",
+  "org"          : "APNIC and Cloudflare DNS Resolver project",
+  "as"           : "AS13335 Cloudflare, Inc.",
+  "asname"       : "CLOUDFLARENET",
+  "mobile"       : false,
+  "proxy"        : false,
+  "hosting"      : true,
+  "query"        : "1.1.1.1"
+}

@@ -1,5 +1,5 @@
 #!/bin/bash
-# get client subnet & dns resolver from ip-api dot com
+# displays your current external/upstream dns resolver
 
 # dns key - the address of the DNS server the client used
 # edns key - the address of the client

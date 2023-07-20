@@ -1,5 +1,5 @@
 #!/bin/bash
-# quickly retrieve get file info and hashes
+# returns useful file information & hashes
 
 if [[ -z "${1}" ]]; then
   echo "usage: finfo <file>"
