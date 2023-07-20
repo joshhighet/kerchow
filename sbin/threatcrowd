@@ -1,9 +1,0 @@
-#!/bin/zsh
-# use the threatcrowd api to lookup a domain
-
-if [ -z "$1" ]; then
-    echo "usage: threatcrowd <domain>"
-    exit 1
-fi
-
-curl --silent "https://www.threatcrowd.org/searchApi/v2/domain/report/?domain=${1}" | jq 'del (.permalink) | del (.votes)'
