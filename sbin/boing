@@ -1,3 +1,9 @@
 #!/bin/bash
-# make bebop noise
-echo -e '\a'
+# makes an audible boing noise (can be useful for long-running scripts)
+
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  echo "macos only"
+  exit 1
+fi
+ 
+echo -e '\a🔊'
