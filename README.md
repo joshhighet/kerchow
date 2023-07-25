@@ -1076,7 +1076,7 @@ total time:		0.162746
 
 ## whatport
 
-[:link:](sbin/whatport) _search for common port usages (what does port 763 correspond to)_
+[:link:](sbin/whatport) _search for common port usages (what does port X typically correspond to)_
 
 <details><summary>example:</summary>
 

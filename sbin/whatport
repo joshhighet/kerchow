@@ -1,5 +1,5 @@
 #!/bin/bash
-# search for common port usages (what does port 763 correspond to)
+# search for common port usages (what does port X typically correspond to)
 
 if [ -z "$1" ]; then
     echo "usage: whatport <port>"
