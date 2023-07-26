@@ -10,67 +10,92 @@ import codecs
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
+URL_PATTERN = {
+    "shodan": "https://www.shodan.io/search?query=http.favicon.hash%3A",
+    "censys": "https://censys.io/ipv4?q=services.http.response.favicons.md5_hash%3A",
+    "binaryedge": "https://app.binaryedge.io/services/query?query=web.favicon.mmh3%3A",
+    "zoomeye": "https://www.zoomeye.org/searchResult?q=iconhash%3A",
+    "fofa": "https://en.fofa.info/result?qbase64="
+}
+
 log = logging.getLogger(__name__)
 
 def setup_logging(debug):
     level = logging.DEBUG if debug else logging.INFO
     logging.basicConfig(format="%(levelname)s: %(message)s", level=level)
 
-def get_mmh3(encodedfavicon):
-    return mmh3.hash(encodedfavicon)
-
-def get_md5(encodedfavicon):
-    md5fav = hashlib.md5(encodedfavicon).hexdigest()
-    return md5fav
+def get_hash(encodedfavicon, algorithm):
+    if algorithm == "mmh3":
+        return mmh3.hash(encodedfavicon)
+    elif algorithm == "md5":
+        return hashlib.md5(encodedfavicon).hexdigest()
 
 def get_favicon_64(domain, requestobject):
     domain = domain.rstrip('/')
-    soup = BeautifulSoup(requestobject.text, features="lxml")
+    try:
+        soup = BeautifulSoup(requestobject.text, features="lxml")
+    except Exception as e:
+        log.error(f"Error parsing HTML: {str(e)}")
+        return None, None
     icon_link = soup.find("link", rel=lambda x: x and x.lower() in ["shortcut icon", "icon"])
     if icon_link is None:
         location = urljoin(domain, '/favicon.ico')
     elif icon_link["href"].startswith('data:image/'):
-        favicon64 = icon_link["href"].split(',')[1]
-        return favicon64
+        return icon_link["href"].split(',')[1], None
     else:
         location = urljoin(domain, icon_link["href"])
-    logging.debug('i think the favicon location is: %s', location)
-    favicondata = requests.get(location)
+    log.debug(f'favicon location is: {location}')
+    try:
+        favicondata = requests.get(location)
+    except Exception as e:
+        log.error(f"error fetching favicon: {str(e)}")
+        return None, None
     if favicondata is None or favicondata.status_code != 200:
-        logging.info('favicon location (%s) returned no response or invalid status code', location)
-        return None
-    print('location: ' + location + '\n')
+        log.info(f'favicon location ({location}) returned no response or invalid status code')
+        return None, None
     favicon64 = codecs.encode(favicondata.content, "base64")
     return favicon64, favicondata.content
+
+def print_and_log(message, level="info"):
+    if level == "info":
+        log.info(message)
+    elif level == "error":
+        log.error(message)
+
+def print_search_url(hash, source):
+    message = f'{source}: {URL_PATTERN[source]}{hash}'
+    print_and_log(message)
 
 def main():
     parser = argparse.ArgumentParser(description="retrieve and hash the favicon from a given domain.")
     parser.add_argument("domain", help="the domain to fetch the favicon from.")
-    parser.add_argument("--debug", action="store_true", help="enable debug logging.")
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging.")
     args = parser.parse_args()
     setup_logging(args.debug)
-    request_object = requests.get(args.domain)
+    try:
+        request_object = requests.get(args.domain)
+    except Exception as e:
+        log.error(f"failed to fetch the domain: {str(e)}")
+        return
     if request_object.status_code != 200:
-        log.error("failed to fetch the domain. status code: %d", request_object.status_code)
+        log.error(f"failed to fetch the domain. Status code: {request_object.status_code}")
         return
     favicon_64, favicon_raw = get_favicon_64(args.domain, request_object)
     if favicon_64 is None:
         log.warning("failed to retrieve the favicon.")
         return
-    favicon_mmh3 = get_mmh3(favicon_64)
-    favicon_md5 = get_md5(favicon_64)
-    print('shodan: http.favicon.hash:' + str(favicon_mmh3))
-    print('https://www.shodan.io/search?query=http.favicon.hash%3A' + str(favicon_mmh3) + '\n')
-    print('censys: services.http.response.favicons.md5_hash:' + str(favicon_md5))
-    print('https://censys.io/ipv4?q=services.http.response.favicons.md5_hash%3A' + str(favicon_md5) + '\n')
-    print('binaryedge: web.favicon.mmh3:' + str(favicon_mmh3))
-    print('https://app.binaryedge.io/services/query?query=web.favicon.mmh3%3A' + str(favicon_mmh3) + '\n')
-    print('zoomeye: iconhash:' + str(favicon_mmh3))
-    print('https://www.zoomeye.org/searchResult?q=iconhash%3A' + str(favicon_mmh3) + '\n')
-    print('fofa: icon_hash=' + str(favicon_mmh3))
-    fofa_str = 'icon_hash=' + str(favicon_mmh3)
+    favicon_mmh3 = get_hash(favicon_64, "mmh3")
+    favicon_md5 = get_hash(favicon_64, "md5")
+    print_search_url(favicon_mmh3, "shodan")
+    print_search_url(favicon_md5, "censys")
+    print_search_url(favicon_mmh3, "binaryedge")
+    print_search_url(favicon_mmh3, "zoomeye")
+    fofa_str = f'icon_hash={favicon_mmh3}'
     fofa_64 = codecs.encode(fofa_str.encode(), "base64").decode('utf-8')
-    print('https://en.fofa.info/result?qbase64=' + str(fofa_64))
+    print_search_url(fofa_64, "fofa")
+    print(f'favicon mmh3 hash: {favicon_mmh3}')
+    print(f'favicon md5 hash: {favicon_md5}')
+    print(f'favicon location: {args.domain}/favicon.ico')
 
 if __name__ == "__main__":
     main()
