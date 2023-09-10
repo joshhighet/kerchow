@@ -1,11 +1,10 @@
 #!/bin/zsh
-# follow a URL and return the destination after redirects
+# follow a URL and return all the redirects
 
 if [ -z "$1" ]; then
     echo "usage: redirect <url>"
     exit 1
 fi
 
-curl --silent --location --output /dev/null --write-out %{url_effective} --url $1
-
-echo
+curl --silent --location --output /dev/null --verbose --url "$1" 2>&1 \
+| grep -E '^< Location:'

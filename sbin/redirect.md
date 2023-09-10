@@ -1,2 +1,4 @@
-➜  kerchow git:(main) ✗ redirect google.com
-https://www.google.com/?gws_rd=ssl
+➜  kerchow git:(main) ✗ redirect google.com/images
+< Location: http://www.google.com/images
+< Location: http://www.google.com/imghp
+< Location: https://www.google.com/imghp?gws_rd=ssl
