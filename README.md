@@ -314,7 +314,7 @@ crc32    | 66b11e8a
 
 ## get-urlscansubs
 
-[:link:](sbin/get-urlscansubs) _build datasets of active url's from urlscan _
+[:link:](sbin/get-urlscansubs) _build datasets of active url's from urlscan_
 
 <details><summary>example:</summary>
 
@@ -328,28 +328,21 @@ INFO:root:working on: https://status.solidvpn.org/
 
 ## getfavicon
 
-[:link:](sbin/getfavicon) _-*- coding: utf-8 -*-_
+[:link:](sbin/getfavicon) _get favicon data; hash (md5 & mmh3), full path location, external search urls (shodan, censys, binaryedge, zoomeye, fofa)_
 
 <details><summary>example:</summary>
 
 ```
-➜  labs getfavicon https://google.com
-location: https://google.com/favicon.ico
+➜  labs getfavicon https://ransomwatch.telemetry.ltd
+INFO: shodan: https://www.shodan.io/search?query=http.favicon.hash%3A-1066837762
+INFO: censys: https://censys.io/ipv4?q=services.http.response.favicons.md5_hash%3A44e50f01227802a40685221310e42355
+INFO: binaryedge: https://app.binaryedge.io/services/query?query=web.favicon.mmh3%3A-1066837762
+INFO: zoomeye: https://www.zoomeye.org/searchResult?q=iconhash%3A-1066837762
+INFO: fofa: https://en.fofa.info/result?qbase64=aWNvbl9oYXNoPS0xMDY2ODM3NzYy
 
-shodan: http.favicon.hash:708578229
-https://www.shodan.io/search?query=http.favicon.hash%3A708578229
-
-censys: services.http.response.favicons.md5_hash:16042a26dc781525a20afdeda28fc293
-https://censys.io/ipv4?q=services.http.response.favicons.md5_hash%3A16042a26dc781525a20afdeda28fc293
-
-binaryedge: web.favicon.mmh3:708578229
-https://app.binaryedge.io/services/query?query=web.favicon.mmh3%3A708578229
-
-zoomeye: iconhash:708578229
-https://www.zoomeye.org/searchResult?q=iconhash%3A708578229
-
-fofa: icon_hash=708578229
-https://en.fofa.info/result?qbase64=aWNvbl9oYXNoPTcwODU3ODIyOQ==
+favicon mmh3 hash: -1066837762
+favicon md5 hash: 44e50f01227802a40685221310e42355
+favicon location: https://ransomwatch.telemetry.ltd/favicon.ico
 ```
 </details>
 
@@ -922,13 +915,15 @@ bill.gates@microsoft.com
 
 ## redirect
 
-[:link:](sbin/redirect) _follow a URL and return the destination after redirects_
+[:link:](sbin/redirect) _follow a URL and return all the redirects_
 
 <details><summary>example:</summary>
 
 ```
-➜  kerchow git:(main) ✗ redirect google.com
-https://www.google.com/?gws_rd=ssl
+➜  kerchow git:(main) ✗ redirect google.com/images
+< Location: http://www.google.com/images
+< Location: http://www.google.com/imghp
+< Location: https://www.google.com/imghp?gws_rd=ssl
 ```
 </details>
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# get favicon data; hash (md5 & mmh3), full path location, external search urls (shodan, censys, binaryedge, zoomeye, fofa)
 
 import argparse
 import logging
