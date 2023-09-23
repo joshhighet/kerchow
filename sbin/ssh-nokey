@@ -6,4 +6,9 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-ssh -o PasswordAuthentication=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no ${1}
+ssh -o PasswordAuthentication=yes \
+    -o PreferredAuthentications=keyboard-interactive,password \
+    -o PubkeyAuthentication=no \
+    -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null \
+    ${1} 2>/dev/null
