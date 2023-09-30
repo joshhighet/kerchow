@@ -3,7 +3,7 @@
 
 if [ -n "$1" ]; then
   curl -sL ransomwhat.telemetry.ltd/groups \
-  | jq -r ".[] | select(.name == \"$1\") | .locations[]"
+  | jq -r ".[] | select(.name == \"$1\") | .locations[] | \"slug: \(.slug)\\nseen: \(.lastscrape)\\nenabled: \(.enabled)\\navail: \(.available)\\n\""
 else
   curl -sL ransomwhat.telemetry.ltd/groups \
   | jq
