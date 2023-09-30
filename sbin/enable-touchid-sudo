@@ -1,0 +1,13 @@
+#!/bin/bash
+# enable touch-id for sudo operations on macOS
+
+# check if the PAM configuration for tid in sudo is enabled
+touchid_enabled=$(grep -E 'pam_tid.so' /etc/pam.d/sudo)
+
+if [ -n "$touchid_enabled" ]; then
+    echo "pam tid is already enabled for sudo."
+else
+    echo "setting pam tid for sudo..."
+    echo "auth       sufficient     pam_tid.so" | sudo tee -a /etc/pam.d/sudo > /dev/null
+    echo "done."
+fi

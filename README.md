@@ -258,6 +258,20 @@ ns3.google.com.
 ```
 </details>
 
+## enable-touchid-sudo
+
+[:link:](sbin/enable-touchid-sudo) _enable touch-id for sudo operations on macOS_
+
+<details><summary>example:</summary>
+
+```
+➜  labs enable-touchid-sudo
+setting pam tid for sudo...
+Password:
+done.
+```
+</details>
+
 ## feedread-certnz
 
 [:link:](sbin/feedread-certnz) _show the latest posts on the certnz advisories page_
@@ -1064,6 +1078,22 @@ total time:		0.162746
 ## wgetspider
 
 [:link:](sbin/wgetspider) _spider/download a site using wget into './downloaded'_
+
+## whatazuresvc
+
+[:link:](sbin/whatazuresvc) _use azure public ip tag data to correlate an address to a service_
+
+<details><summary>example:</summary>
+
+```
+➜  labs whatazuresvc 20.70.246.20
+ip: 20.70.246.20
+name: AzureCloud.australiaeast
+region: australiaeast
+system service: Not specified
+address prefix: 20.70.128.0/17
+```
+</details>
 
 ## whatmydns
 
