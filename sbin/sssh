@@ -19,13 +19,28 @@ echo
 
 if [ -f ~/.kerchow-hosts ]; then
     hosts=($(cat ~/.kerchow-hosts))
-    hosts=(all "${hosts[@]}")
 else
     error "config file missing, create ~/.kerchow-hosts with one hostname per line."
     exit 1
 fi
 
-# hosts=(${hosts[@]/hostTo.remove/})
+process_host() {
+    local host="$1"
+    local usrcommand="$2"
+    resolve_address=$(host "${host}" | awk '/has address/ { print $4 }')
+    if [ -z "${resolve_address}" ]
+    then
+        if [ "${host}" != "pihole.nameserv" ]
+        then
+            warn "${host} | failed to resolve"
+            return
+        fi
+    fi
+    good "${host} | ${fg[yellow]}${resolve_address}${reset_color}"
+    ssh -q -t -o ConnectTimeout=2 "${host}" "${usrcommand}"
+}
+
+hosts=(all parallel "${hosts[@]}")
 
 select host in "${hosts[@]}"; do
     if [ -n "${host}" ]; then
@@ -33,32 +48,31 @@ select host in "${hosts[@]}"; do
     fi
 done
 
-if [ "${host}" = "all" ]
+if [ "${host}" = "all" ] || [ "${host}" = "parallel" ]
+then
+    if [ -z "${1}" ]
     then
-        if [ -z "${1}" ]
-        then
-            vared -p 'command to run: ' -c usrcommand
-        else
-            usrcommand="${1}"
-        fi
-        echo "${usrcommand}" | cowsay | lolcat
-        for host in "${hosts[@]}"; do
-            if [ "${host}" = "all" ]
-            then
-                continue
-            fi
-            resolve_address=$(host "${host}" | awk '/has address/ { print $4 }')
-            if [ -z "${resolve_address}" ]
-            then
-                if [ "${host}" != "pihole.nameserv" ]
-                then
-                    warn "${host} | failed to resolve"
-                    continue
-                fi
-            fi
-            good "${host} | ${fg[yellow]}${resolve_address}${reset_color}"
-            ssh -q -t -o ConnectTimeout=2 "${host}" "${usrcommand}"
-            done
+        vared -p 'command to run: ' -c usrcommand
     else
-        ssh -q -t -o ConnectTimeout=2 "${host}" "${1}"
+        usrcommand="${1}"
+    fi
+    echo "${usrcommand}" | cowsay | lolcat
+    for host in "${hosts[@]}"; do
+        if [ "${host}" = "all" ] || [ "${host}" = "parallel" ]
+        then
+            continue
+        fi
+        if [ "${select_host}" = "parallel" ]; then
+            (
+                process_host "${host}" "${usrcommand}"
+            ) &
+        else
+            process_host "${host}" "${usrcommand}"
+        fi
+    done
+    if [ "${select_host}" = "parallel" ]; then
+        wait
+    fi
+else
+    ssh -q -t -o ConnectTimeout=2 "${host}" "${1}"
 fi
