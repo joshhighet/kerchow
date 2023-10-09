@@ -7,4 +7,4 @@ if [[ -z "$(git rev-parse --git-dir 2>/dev/null)" ]]; then
 fi
 
 git submodule init
-git submodule update
+git submodule update -j 20 
