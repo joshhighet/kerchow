@@ -1,0 +1,4 @@
+#!/bin/bash
+# grep for http(s) URLs
+
+grep -o 'http[s]\?://[^"]*'ehco 
