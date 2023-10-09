@@ -180,6 +180,10 @@ Set-Cookie: _session_={xxx}; path=/; domain=ciadotgov4sjwlzihbbgxnqg3xiyrg7so2r2
 
 [:link:](sbin/dehashed-email) _get dehashed results for an email_
 
+## desktopicons
+
+[:link:](sbin/desktopicons) _show/hide desktop icons on/off on macOS_
+
 ## dex
 
 [:link:](sbin/dex) _get a shell in the latest built docker container_
@@ -391,6 +395,18 @@ ba8f4151-ab0e-4da6-862d-68b05906e887
 | | | | | (_| | | | | | | |  __/ |_
 |_| |_|_|\__, |_| |_|_| |_|\___|\__|
          |___/	      telemetry.dark
+```
+</details>
+
+## getsitetitle
+
+[:link:](sbin/getsitetitle) _return the title of a site from the html_
+
+<details><summary>example:</summary>
+
+```
+➜  labs curl -sL https://apple.com/iphone | getsitetitle
+iPhone - Apple
 ```
 </details>
 
@@ -915,10 +931,6 @@ bill.gates@microsoft.com
 
 [:link:](sbin/ransomwatch-groupcounts) _return a list of all online ransomwatch hosts_
 
-## ransomwatch-groups
-
-[:link:](sbin/ransomwatch-groups) _return ransomwatch groups_
-
 ## ransomwatch-online
 
 [:link:](sbin/ransomwatch-online) _return a list of all online ransomwatch hosts_
@@ -973,6 +985,10 @@ applecare.vegas
 applecare.wang
 ```
 </details>
+
+## rgroups
+
+[:link:](sbin/rgroups) _return ransomwatch groups_
 
 ## searchcode
 
@@ -1041,6 +1057,10 @@ Nmap done: 1 IP address (1 host up) scanned in 6.44 seconds
 https://dotco.nz/search?query=exe.png
 ```
 </details>
+
+## urlg
+
+[:link:](sbin/urlg) _grep for http(s) URLs_
 
 ## utc
 
