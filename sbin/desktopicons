@@ -1,0 +1,13 @@
+#!/bin/bash
+# show/hide desktop icons on/off on macOS
+
+state=$(defaults read com.apple.finder CreateDesktop)
+if [ "$state" = "true" ]; then
+  echo "turning off"
+  defaults write com.apple.finder CreateDesktop false
+else
+  echo "turning on"
+  defaults write com.apple.finder CreateDesktop true
+fi
+
+killall Finder
