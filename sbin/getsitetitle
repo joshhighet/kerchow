@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+# return the title of a site from the html
+
+import sys
+import logging
+import lxml.html
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+if sys.stdin.isatty():
+    logging.error('no input')
+    sys.exit(1)
+
+def getsitetitle(html) -> str:
+    logging.debug('getting site title')
+    try:
+        parsed_html = lxml.html.fromstring(html)
+        titletext = parsed_html.find(".//title").text
+    except AssertionError:
+        logging.debug('could not fetch site title from source')
+        return None
+    except AttributeError:
+        logging.debug('could not fetch site title from source')
+        return None
+    if titletext is not None:
+        if len(titletext) > 50:
+            titletext = titletext[:50]
+        logging.debug('site title - ' + str(titletext))
+        return titletext
+    logging.debug('could not find site title from source')
+    return None
+
+if __name__ == "__main__":
+    input_html = sys.stdin.read()
+    title = getsitetitle(input_html)
+    if title:
+        print(title)
+
