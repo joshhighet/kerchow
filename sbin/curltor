@@ -19,4 +19,4 @@ if ! nc -z $proxyip $proxyport; then
     exit 1
 fi
 
-curl --socks5-hostname "${proxyaddr}" ${1} ${2}
+curl --silent --socks5-hostname "${proxyaddr}" $@
