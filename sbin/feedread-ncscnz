@@ -1,4 +1,0 @@
-#!/bin/bash
-# show the latest posts on the ncsc nz advisories page
-
-curl -s -I https://www.ncsc.govt.nz/newsroom/category/security-advisories | grep '<h2 class="news-item-heading">' | cut -d '>' -f 2 | cut -d '<' -f 1 | sed -e 's/^/NCSC: /'
