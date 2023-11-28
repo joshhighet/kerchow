@@ -22,12 +22,13 @@ def find_service_for_ip(ip, data):
     return None
 
 def download_json():
-    url = "https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20230925.json"
+    url = "https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20231030.json"
     destination = "/tmp/ServiceTags_Public_20230925.json"
     try:
         urllib.request.urlretrieve(url, destination)
     except Exception as e:
         print(f"error downloading ServiceTags_Public JSON: {e}")
+        print("you may need to download new from https://www.microsoft.com/en-us/download/details.aspx?id=56519")
         sys.exit(1)
     return destination
 
