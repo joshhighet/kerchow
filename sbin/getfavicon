@@ -12,7 +12,7 @@ from urllib.parse import urljoin
 
 URL_PATTERN = {
     "shodan": "https://www.shodan.io/search?query=http.favicon.hash%3A",
-    "censys": "https://censys.io/ipv4?q=services.http.response.favicons.md5_hash%3A",
+    "censys": "https://search.censys.io/search?resource=hosts&q=services.http.response.favicons.md5_hash%3A",
     "binaryedge": "https://app.binaryedge.io/services/query?query=web.favicon.mmh3%3A",
     "zoomeye": "https://www.zoomeye.org/searchResult?q=iconhash%3A",
     "fofa": "https://en.fofa.info/result?qbase64="
@@ -69,7 +69,7 @@ def print_search_url(hash, source):
 def main():
     parser = argparse.ArgumentParser(description="retrieve and hash the favicon from a given domain.")
     parser.add_argument("domain", help="the domain to fetch the favicon from.")
-    parser.add_argument("--debug", action="store_true", help="Enable debug logging.")
+    parser.add_argument("--debug", action="store_true", help="enable debug logging.")
     args = parser.parse_args()
     setup_logging(args.debug)
     try:
