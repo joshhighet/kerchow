@@ -13,21 +13,16 @@ else
 fi
 
 if [ -n "$1" ]; then
-    for host in ${hosts[@]}; do
-        response=$(timeout 2 nc -z $host $1 2>&1)
-        if [ $? -eq 0 ]; then
-            good "$host:$1 is up"
-        else
-            bad "$host:$1 is down!"
-        fi
-    done
-else
-    for host in "${hosts[@]}"; do
-        timeout .1 ping -c1 $host > /dev/null 2>&1
-        if [ $? -eq 0 ]; then
-            good "$host is up"
-        else
-            bad "$host is down!"
-        fi
-    done
+    lag=1
+else;
+    lag=${1}
 fi
+
+for host in "${hosts[@]}"; do
+    timeout ${lag} ping -c${lag} $host > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        good "$host is up"
+    else
+        bad "$host is down!"
+    fi
+done
