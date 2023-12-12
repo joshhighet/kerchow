@@ -18,6 +18,7 @@ if [ "$relaydata" = "[]" ] && [ "$bridgedata" = "[]" ]; then
 else
     echo "this is an advertised Tor node"
     echo "https://metrics.torproject.org/rs.html#search/$1"
+    # https://check.torproject.org/torbulkexitlist
     echo
 fi
 
