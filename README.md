@@ -280,10 +280,6 @@ done.
 
 [:link:](sbin/feedread-certnz) _show the latest posts on the certnz advisories page_
 
-## feedread-ncscnz
-
-[:link:](sbin/feedread-ncscnz) _show the latest posts on the ncsc nz advisories page_
-
 ## finfo
 
 [:link:](sbin/finfo) _returns useful file information & hashes_
@@ -473,7 +469,7 @@ https://github.com/apple/darwin-xnu
 
 ## google
 
-[:link:](sbin/google) _googles arg1 in the default brower/handler for http, macos only_
+[:link:](sbin/google) _make google query from terminal_
 
 ## gp
 
