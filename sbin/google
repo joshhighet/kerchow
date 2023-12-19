@@ -1,16 +1,15 @@
 #!/bin/bash
-# googles arg1 in the default brower/handler for http, macos only
+# make google query from terminal
 
 if [[ "$OSTYPE" != "darwin"* ]]; then
-  echo "only works on macos sorry"
+  echo "only works on macOS, sorry"
   exit 1
 fi
 
-# check $1 is set
-if [[ -z "$1" ]]; then
-  printf 'search query:' && read query
+if [[ $# -eq 0 ]]; then
+  printf 'search query: ' && read query
 else
-  query=$1
+  query="$*"
 fi
 
 query=$(echo $query | sed 's/ /%20/g')
