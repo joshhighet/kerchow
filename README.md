@@ -20,6 +20,10 @@ each script is noted below alongside a brief description of what it does. where 
 ```
 </details>
 
+## c
+
+[:link:](sbin/c) _pbcopy shortcut_
+
 ## cats
 
 [:link:](sbin/cats) _print the source code of any kerchow shortscripts_
