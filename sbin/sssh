@@ -56,7 +56,7 @@ then
     else
         usrcommand="${1}"
     fi
-    echo "${usrcommand}" | cowsay | lolcat
+    echo "${usrcommand}" | lolcat
     for host in "${hosts[@]}"; do
         if [ "${host}" = "all" ] || [ "${host}" = "parallel" ]
         then
