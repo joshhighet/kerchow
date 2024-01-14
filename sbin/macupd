@@ -1,29 +1,55 @@
 #!/bin/bash
 # macos: update os, applications, homebrew etc
 
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+update_homebrew() {
+  if command_exists brew; then
+    echo "homebrew housekeeping..."
+    brew update
+    brew upgrade
+    brew cleanup
+    brew doctor
+    outdated_casks=$(brew outdated --cask --greedy --quiet)
+    if [ -n "$outdated_casks" ]; then
+      echo "upgrading outdated casks..."
+      brew upgrade $outdated_casks
+    fi
+  else
+    echo "homebrew not found. skipping."
+  fi
+}
+
+update_npm() {
+  if command_exists npm; then
+    echo "updating npm packages globally..."
+    npm update -g
+  else
+    echo "npm not found. skipping."
+  fi
+}
+
 if [[ $(uname -s) != "Darwin" ]]; then
-  echo "script for macOS"
+  echo "script is for macOS only."
   exit 1
 fi
 
-if [[ -x "$(command -v nmap)" ]]; then
+echo "updating OS..."
+softwareupdate -i -a
+
+if command_exists nmap; then
+  echo "updating nmap scriptdb..."
   nmap --script-updatedb
 fi
 
-if [[ -x "$(command -v tldr)" ]]; then
+if command_exists tldr; then
+  echo "updating tldr pages..."
   tldr --update
 fi
 
-if [[ -x "$(command -v brew)" ]]; then
-  brew update
-  brew upgrade
-  brew cleanup
-  brew doctor
-  brew upgrade $(brew outdated --cask --greedy --quiet)
-fi
+update_homebrew
+update_npm
 
-if [[ -x "$(command -v npm)" ]]; then
-  npm update -g
-fi
-
-softwareupdate -i -a
+echo "completed."
