@@ -1,4 +1,4 @@
-➜  /tmp grepapp joshhighet.com
+➜  labs grepapp joshhighet.com
 {
   "facets": {
     "count": 1,

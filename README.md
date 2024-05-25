@@ -229,6 +229,28 @@ ns3.google.com.
 
 [:link:](sbin/dim) _list all docker images on current system_
 
+## dnsprop
+
+[:link:](sbin/dnsprop) _simple nameserv propogation check util_
+
+<details><summary>example:</summary>
+
+```
+➜  kerchow git:(main) ✗ dnsprop AAAA dotco.nz
+checking DNS propagation for 'AAAA' record of 'dotco.nz' against top 10 resolvers:
+checking resolver 1.1.1.1 (Cloudflare): reply received (2606:4700:3035::ac43:b7a5,2606:4700:3035::6815:4bef,)
+checking resolver 8.8.8.8 (Google): reply received (2606:4700:3035::6815:4bef,2606:4700:3035::ac43:b7a5,)
+checking resolver 8.8.4.4 (Google Secondary): reply received (2606:4700:3035::6815:4bef,2606:4700:3035::ac43:b7a5,)
+checking resolver 9.9.9.9 (Quad9): reply received (2606:4700:3035::ac43:b7a5,2606:4700:3035::6815:4bef,)
+checking resolver 208.67.222.222 (OpenDNS): reply received (2606:4700:3035::ac43:b7a5,2606:4700:3035::6815:4bef,)
+checking resolver 208.67.220.220 (OpenDNS Secondary): reply received (2606:4700:3035::ac43:b7a5,2606:4700:3035::6815:4bef,)
+checking resolver 77.88.8.8 (Yandex.DNS): reply received (2606:4700:3035::ac43:b7a5,2606:4700:3035::6815:4bef,)
+checking resolver 64.6.64.6 (Verisign): reply received (2606:4700:3035::6815:4bef,2606:4700:3035::ac43:b7a5,)
+checking resolver 64.6.65.6 (Verisign Secondary): reply received (2606:4700:3035::6815:4bef,2606:4700:3035::ac43:b7a5,)
+checking resolver 74.82.42.42 (Hurricane Electric): reply received (2606:4700:3035::ac43:b7a5,2606:4700:3035::6815:4bef,)
+```
+</details>
+
 ## dol
 
 [:link:](sbin/dol) _get logs of the latest or specified container_
@@ -486,7 +508,7 @@ https://github.com/apple/darwin-xnu
 <details><summary>example:</summary>
 
 ```
-➜  /tmp grepapp joshhighet.com
+➜  labs grepapp joshhighet.com
 {
   "facets": {
     "count": 1,
@@ -1026,6 +1048,14 @@ Nmap done: 1 IP address (1 host up) scanned in 6.44 seconds
 
 [:link:](sbin/sshmd5) _generate an md5 signature of a ssh server_
 
+<details><summary>example:</summary>
+
+```
+➜  labs sshmd5 sftp.uber.com 2222
+57:57:72:2f:89:e2:99:5b:19:91:1e:6e:03:a8:cc:cd
+```
+</details>
+
 ## sssh
 
 [:link:](sbin/sssh) _multi-host ssh controller_
@@ -1147,7 +1177,7 @@ address prefix: 20.70.128.0/17
 <details><summary>example:</summary>
 
 ```
-➜  /tmp zonetransfer zonetransfer.me
+➜  labs zonetransfer zonetransfer.me
 attempting zone txfr on zonetransfer.me, nameserver nsztm2.digi.ninja.
 zonetransfer.me.	7200	IN	SOA	nsztm1.digi.ninja. robin.digi.ninja. 2019100801 172800 900 1209600 3600
 zonetransfer.me.	300	IN	HINFO	"Casio fx-700G" "Windows XP"

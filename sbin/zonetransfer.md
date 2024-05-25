@@ -1,4 +1,4 @@
-➜  /tmp zonetransfer zonetransfer.me
+➜  labs zonetransfer zonetransfer.me
 attempting zone txfr on zonetransfer.me, nameserver nsztm2.digi.ninja.
 zonetransfer.me.	7200	IN	SOA	nsztm1.digi.ninja. robin.digi.ninja. 2019100801 172800 900 1209600 3600
 zonetransfer.me.	300	IN	HINFO	"Casio fx-700G" "Windows XP"

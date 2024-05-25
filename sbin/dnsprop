@@ -1,0 +1,50 @@
+#!/bin/bash
+# simple nameserv propogation check util
+
+if [ $# -ne 2 ]; then
+    echo "usage: dnsprop <record type> <domain>"
+    exit 1
+fi
+
+record_type=$1
+dns_name=$2
+
+declare -a resolver_ips=(
+    "1.1.1.1"
+    "8.8.8.8"
+    "8.8.4.4"
+    "9.9.9.9"
+    "208.67.222.222"
+    "208.67.220.220"
+    "77.88.8.8"
+    "64.6.64.6"
+    "64.6.65.6"
+    "74.82.42.42"
+)
+
+declare -a resolver_names=(
+    "Cloudflare"
+    "Google"
+    "Google Secondary"
+    "Quad9"
+    "OpenDNS"
+    "OpenDNS Secondary"
+    "Yandex.DNS"
+    "Verisign"
+    "Verisign Secondary"
+    "Hurricane Electric"
+)
+
+echo "checking DNS propagation for '$record_type' record of '$dns_name' against top 10 resolvers:"
+
+for i in "${!resolver_ips[@]}"; do
+    resolver="${resolver_ips[$i]}"
+    resolver_name="${resolver_names[$i]}"
+    echo -n "checking resolver $resolver ($resolver_name): "
+    results=$(dig +short @$resolver $dns_name $record_type | tr '\n' ', ' | sed 's/, $//')
+    if [ -z "$results" ]; then
+        echo "no reply"
+    else
+        echo "reply received ($results)"
+    fi
+done

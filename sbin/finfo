@@ -1,5 +1,6 @@
 #!/bin/bash
 # returns useful file information & hashes
+# TODO: Tools supporting Carbon development, including /usr/bin/GetFileInfo, were deprecated with Xcode 6.
 
 if [[ -z "${1}" ]]; then
   echo "usage: finfo <file>"
