@@ -1,0 +1,3 @@
+#!/bin/bash
+# check if clamshell mode on
+ioreg -r -k AppleClamshellState -d 4 | grep -i AppleClamshellState
