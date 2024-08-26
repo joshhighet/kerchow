@@ -41,7 +41,7 @@ for i in "${!resolver_ips[@]}"; do
     resolver="${resolver_ips[$i]}"
     resolver_name="${resolver_names[$i]}"
     echo -n "checking resolver $resolver ($resolver_name): "
-    results=$(dig +short @$resolver $dns_name $record_type | tr '\n' ', ' | sed 's/, $//')
+    results=$(timeout 1 dig +short @$resolver $dns_name $record_type | tr '\n' ', ' | sed 's/, $//')
     if [ -z "$results" ]; then
         echo "no reply"
     else
