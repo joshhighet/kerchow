@@ -366,6 +366,10 @@ INFO:root:working on: https://status.solidvpn.org/
 ```
 </details>
 
+## getMBscreenState
+
+[:link:](sbin/getMBscreenState) _check if clamshell mode on_
+
 ## getfavicon
 
 [:link:](sbin/getfavicon) _get favicon data; hash (md5 & mmh3), full path location, external search urls (shodan, censys, binaryedge, zoomeye, fofa)_
@@ -802,6 +806,10 @@ link            https://viz.greynoise.io/riot/1.1.1.1
 last_seen       2023-07-20
 ```
 </details>
+
+## ipinfo.io
+
+[:link:](sbin/ipinfo.io) __
 
 ## iptables-clear
 
