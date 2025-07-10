@@ -9,13 +9,15 @@ fi
 if [ -f ~/.torsocksconf ]; then
     proxyaddr=$(cat ~/.torsocksconf)
 else
+    echo "no config found, using localhost:9050"
+    echo "set a custom proxy by writing to ~/.torsocksconf"
     proxyaddr='localhost:9050'
 fi
 
 proxyip=$(echo $proxyaddr | cut -d: -f1)
 proxyport=$(echo $proxyaddr | cut -d: -f2)
-if ! nc -z $proxyip $proxyport; then
-    echo "socks5 proxy $proxyaddr is down"
+if ! timeout 1 nc -z $proxyip $proxyport; then
+    echo "socks5 proxy $proxyaddr seems down?"
     exit 1
 fi
 
