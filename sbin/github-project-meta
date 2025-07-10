@@ -1,0 +1,13 @@
+#!/bin/bash
+# get github project featureflags
+
+
+if [ -z "$1" ]; then
+    echo "usage: github-project-meta author/repo"
+    exit 1
+fi
+
+curl -s https://github.com/$1 | \
+grep '<script type="application/json" id="client-env">' | \
+sed -e 's/<script type="application\/json" id="client-env">//' -e 's/<\/script>//' | \
+jq
