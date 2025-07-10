@@ -1,4 +1,14 @@
 #!/bin/bash
 # shows running service network interaction (listening ports)
-
+echo 'tcp:'
 sudo lsof -iTCP -sTCP:LISTEN -n -P
+echo 'udp:'
+sudo lsof -iUDP -n -P
+if [ "$1" == "all" ]; then
+    echo 'unix:'
+    sudo lsof -i -U
+    echo 'raw:'
+    sudo lsof -i -R
+    echo 'ip:'
+    sudo lsof -i -i
+fi 
