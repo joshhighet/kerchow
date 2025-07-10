@@ -6,7 +6,8 @@ good() { echo "${fg[green]}$@${reset_color}" >&2 }
 bad() { echo "${fg[red]}$@${reset_color}" >&2 }
 
 if [ -f ~/.kerchow-hosts ]; then
-    hosts=($(cat ~/.kerchow-hosts))
+    # exclude lines starting with '#'
+    hosts=(${(f)"$(grep -v '^#' ~/.kerchow-hosts)"})
 else
     bad "config file missing, create ~/.kerchow-hosts with one hostname per line."
     exit 1
