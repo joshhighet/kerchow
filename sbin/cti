@@ -1,0 +1,15 @@
+#!/bin/bash
+# cruise tracking intelligence
+
+curl -s https://www.poal.co.nz/operations/schedules/cruises/download \
+| tail -n +2 \
+| awk -F, '
+  BEGIN {
+    printf "%-25s %-15s %-20s %-20s %-20s %-20s\n",
+           "Vessel", "Wharf", "Arrival", "Departs", "Previous Port", "Next Port";
+  }
+  {
+    gsub(/"/, "", $0);
+    printf "%-25s %-15s %-20s %-20s %-20s %-20s\n",
+           $1, $2, $3, $4, $5, $6;
+  }'
