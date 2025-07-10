@@ -1,4 +1,9 @@
 #!/bin/zsh
 # show current dns servers
 
-grep nameserver <(scutil --dns)
+if [ "$(uname)" == "Darwin" ]; then
+  scutil --dns | grep nameserver
+else
+  echo "only macos"
+  exit 1
+fi
