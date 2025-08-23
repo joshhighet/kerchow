@@ -10,5 +10,5 @@ if [ "$1" == "all" ]; then
     echo 'raw:'
     sudo lsof -i -R
     echo 'ip:'
-    sudo lsof -i -i
+    sudo lsof -i
 fi 
