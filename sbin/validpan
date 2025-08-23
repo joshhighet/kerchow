@@ -1,6 +1,11 @@
 #!/bin/bash
 # check if a given credit card number (var1) passes mod10 checksum
 
+if [ -z "$1" ]; then
+    echo "usage: validpan <credit-card-number>"
+    exit 1
+fi
+
 pan=$1
 panlen=${#pan}
 
@@ -14,5 +19,10 @@ for i in $(seq $((panlen - 1)) -1 0); do
   ((sum+=digit))
 done
 
-[ $((sum % 10)) -eq 0 ] || echo "luhn Mod10 check Fails" && exit 1
-echo "Luhn Mod10 Check Passes"
+if [ $((sum % 10)) -eq 0 ]; then
+    echo "Luhn Mod10 Check Passes"
+    exit 0
+else
+    echo "Luhn Mod10 check Fails"
+    exit 1
+fi
