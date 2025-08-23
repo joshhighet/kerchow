@@ -13,7 +13,9 @@ read changes
 	echo "changes must be described. exiting"
 	exit 1
   fi
+else
+  changes="$1"
 fi
 #git add .
-git commit -m "${changes}${@}"
+git commit -m "${changes}${@:2}"
 git push || git push --set-upstream origin "$( git branch )"
