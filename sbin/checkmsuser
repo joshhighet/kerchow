@@ -15,11 +15,14 @@ def main(email):
     except requests.exceptions.RequestException as e:
         logging.error("error: %s" % e)
         exit(1)
-    if bool(req.json()["IfExistsResult"]) is False:
+    
+    json_response = req.json()
+    # IfExistsResult: 0 = account exists, 1 = account does not exist
+    if json_response.get("IfExistsResult", 1) == 0:
         response["valid_account"] = True
-    if bool(req.json()["IfExistsResult"]) is True:
+    else:
         response["valid_account"] = False
-    if "FederationRedirectUrl" in req.json()["Credentials"]:
+    if "FederationRedirectUrl" in json_response.get("Credentials", {}):
         response["external_idp"] = True
     return response
 
