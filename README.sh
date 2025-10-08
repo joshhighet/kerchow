@@ -1,7 +1,7 @@
 #!/bin/bash
 # creates drivers/sbin/README.md based upon directory contents
 
-set -e
+set -Eeuo pipefail
 
 echo '''# kerchow
 
@@ -16,14 +16,12 @@ each script is noted below alongside a brief description of what it does. where 
 
 scriptsdir=$(git rev-parse --show-toplevel)/sbin
 cd "${scriptsdir}"
-for file in *
-do
-  if [ "${file}" != "README.md" ] && [ "${file}" != "matrix" ]
-  then
-    filetype=$(file "${file}")
-    if [[ "${filetype}" == *"script text executable"* ]]; then
-      definition=$(cat "$file" | sed -n '2p')
-      description=$(echo "${definition}" | sed 's/# //g')
+for file in *; do
+  if [ -f "${file}" ] && [ "${file}" != "README.md" ] && [ "${file}" != "matrix" ] && [[ "${file}" != *.md ]]; then
+    shebang=$(head -n 1 "${file}" || true)
+    if [[ "${shebang}" == "#!"* ]]; then
+      definition=$(sed -n '2p' "${file}" || true)
+      description=$(echo "${definition}" | sed -e 's/^#\s\?//')
       echo "## ${file}" >> ../README.md
       echo "" >> ../README.md
       echo "[:link:](sbin/${file}) _${description}_" >> ../README.md
