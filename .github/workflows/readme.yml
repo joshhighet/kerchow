@@ -1,0 +1,37 @@
+name: generate-refdoc
+
+on:
+  push:
+    branches: [ "**" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl git
+
+      - name: README-sh>md
+        run: |
+          chmod +x README.sh
+          ./README.sh
+
+      - name: commit
+        run: |
+          if ! git diff --quiet -- README.md; then
+            git config user.name github-actions
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add README.md
+            git commit -m "generate readme"
+            git push
+          else
+            echo "no changes to commit"
+          fi
