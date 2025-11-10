@@ -50,6 +50,7 @@ if command_exists tldr; then
 fi
 
 update_homebrew
+brew cleanup
 update_npm
 
 echo "completed."
