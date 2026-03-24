@@ -968,13 +968,13 @@ Nmap done: 1 IP address (1 host up) scanned in 6.44 seconds
 
 [:link:](sbin/tor-readyyet) _this checks if a tor circuit has been completed by polling the controlport_
 
+## torcc
+
+[:link:](sbin/torcc) _return overview on tor bridges, exits & open relays for a given country code_
+
 ## torexits-jsonarray
 
 [:link:](sbin/torexits-jsonarray) _returns a JSON array of public Tor exit nodes_
-
-## tornz
-
-[:link:](sbin/tornz) _return overview on tor bridges, exits & open relays [nz netspace]_
 
 ## urld
 
