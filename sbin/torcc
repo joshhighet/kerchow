@@ -1,0 +1,27 @@
+#!/bin/bash
+# return overview on tor bridges, exits & open relays for a given country code
+
+if [ -z "$1" ]; then
+    echo "usage: tornz <country-code>"
+    exit 1
+fi
+
+country="$1"
+
+query=$(cat <<EOF
+.relays[]
+| select(.country == "$country")
+| {
+    nom:      .nickname,
+    print:    .fingerprint,
+    contact:  .contact,
+    asnom:    .as_name,
+    as:       .as,
+    lastseen: .last_seen,
+    platform: .platform,
+    exit:     .exit_probability
+  }
+EOF
+)
+
+curl -s https://onionoo.torproject.org/details | jq "$query" | jq -s
