@@ -7,4 +7,4 @@ else
     limit=5
 fi
 
-find / -type f -exec du -a {} + -print 2>/dev/null | sort -nr | head -n "${limit}"
+find / -type f -exec du -a {} + 2>/dev/null | sort -nr | head -n "${limit}"

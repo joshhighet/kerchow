@@ -22,7 +22,7 @@ base=$PWD
 git submodule init
 git submodule update
 
-cd $1 && echo removing `git config --get remote.origin.url` && cd $base
+cd "$1" && echo removing "$(git config --get remote.origin.url)" && cd "$base"
 
 git submodule deinit -f "${1}"
 rm -rf .git/modules/"${1}"

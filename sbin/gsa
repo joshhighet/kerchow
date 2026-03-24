@@ -6,5 +6,5 @@ if [[ -z "${1}" ]]; then
   exit 1
 fi
 
-git submodule add ${1}
+git submodule add "${1}"
 git commit -m "added submodule ${1}"

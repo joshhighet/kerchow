@@ -1,2 +1,3 @@
 #!/bin/bash
+# prevent macOS from sleeping (display, system & user idle)
 caffeinate -disu

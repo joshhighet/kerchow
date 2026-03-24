@@ -21,7 +21,7 @@ for file in *; do
     shebang=$(head -n 1 "${file}" || true)
     if [[ "${shebang}" == "#!"* ]]; then
       definition=$(sed -n '2p' "${file}" || true)
-      description=$(echo "${definition}" | sed -e 's/^#\s\?//')
+      description=$(echo "${definition}" | sed -e 's/^#[[:space:]]*//')
       echo "## ${file}" >> ../README.md
       echo "" >> ../README.md
       echo "[:link:](sbin/${file}) _${description}_" >> ../README.md

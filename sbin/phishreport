@@ -15,7 +15,7 @@ response=$(curl --silent \
 -X POST \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer ${authkey}" \
--d '{"url":"'${1}'"}')
+-d "{\"url\":\"${1}\"}")
 
-echo $response | jq
-echo 'https://phish.report/cases/'$(echo $response | jq -r '.id')
+echo "$response" | jq
+echo "https://phish.report/cases/$(echo "$response" | jq -r '.id')"

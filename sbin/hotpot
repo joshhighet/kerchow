@@ -1,0 +1,41 @@
+#!/bin/zsh
+# check for a captive portal & trigger detection
+
+get_default_gateway() {
+    local gateway
+    gateway=$(route get default | grep gateway | awk '{print $2}')
+    echo "found default gateway: $gateway" >&2
+    echo "$gateway"
+}
+
+check_captive_portal() {
+    echo "checking for captive portal via http://captive.apple.com/generate_204..."
+    if curl -s --head --fail http://captive.apple.com/generate_204 > /dev/null; then
+        echo "no captive portal detected (got expected 204 response)."
+    else
+        echo "captive portal likely active (request failed or redirected)."
+    fi
+}
+
+trigger_captive_portal() {
+    local gateway
+    gateway=$(get_default_gateway)
+    if [[ -z "$gateway" ]]; then
+        echo "error: could not find default gateway."
+        exit 1
+    fi
+
+    local url="http://$gateway"
+    echo "attempting to trigger captive portal opening $url..."
+
+    if open "$url"; then
+        echo "opened $url."
+        echo "fail? try loadup http://neverssl.com or http://captive.apple.com"
+    else
+        echo "failed to open $url."
+    fi
+}
+
+check_captive_portal
+echo ""
+trigger_captive_portal
