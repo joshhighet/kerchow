@@ -20,10 +20,6 @@ each script is noted below alongside a brief description of what it does. where 
 ```
 </details>
 
-## c
-
-[:link:](sbin/c) _pbcopy shortcut_
-
 ## cats
 
 [:link:](sbin/cats) _print the source code of any kerchow shortscripts_
@@ -93,10 +89,6 @@ fi
 }
 ```
 </details>
-
-## cfssh
-
-[:link:](sbin/cfssh) _use the cloudflared tunnel agent to ssh onto a target fqdn_
 
 ## checkmsuser
 
@@ -179,10 +171,6 @@ Connection: keep-alive
 Set-Cookie: _session_={xxx}; path=/; domain=ciadotgov4sjwlzihbbgxnqg3xiyrg7so2r2o3lt5wz5ypk4sxyjstad.onion; secure; HttpOnly
 ```
 </details>
-
-## dehashed-email
-
-[:link:](sbin/dehashed-email) _get dehashed results for an email_
 
 ## desktopicons
 
@@ -298,10 +286,6 @@ done.
 ```
 </details>
 
-## feedread-certnz
-
-[:link:](sbin/feedread-certnz) _show the latest posts on the certnz advisories page_
-
 ## finfo
 
 [:link:](sbin/finfo) _returns useful file information & hashes_
@@ -361,10 +345,6 @@ INFO:root:saved urlscan-submissions.json
 INFO:root:working on: https://status.solidvpn.org/
 ```
 </details>
-
-## getMBscreenState
-
-[:link:](sbin/getMBscreenState) _check if clamshell mode on_
 
 ## getfavicon
 
@@ -641,6 +621,10 @@ X-Frame-Options: SAMEORIGIN
 ```
 </details>
 
+## hotpot
+
+[:link:](sbin/hotpot) _check for a captive portal & trigger detection_
+
 ## http
 
 [:link:](sbin/http) _python3 simple http server_
@@ -763,46 +747,6 @@ X-Frame-Options: SAMEORIGIN
 
 [:link:](sbin/ipinfo) _basic cli netaddress enrichment with greynoise, virustotal & ipinfo_
 
-<details><summary>example:</summary>
-
-```
-➜  labs ipinfo 1.1.1.1
-
-hostname  one.one.one.one
-anycast   true
-country   US
-loc       34.0522,-118.2437
-postal    90076
-timezone  America/Los_Angeles
-harmless    67
-malicious   2
-suspicious  0
-undetected  19
-timeout     0
-
-rgcrjsqaalucmmlfom3s26bygywtmna.h.nessus.org
-rgcrjsqaalucmelfom3s26bygywtmna.h.nessus.org
-microsoft.amch-1dnj.sbs
-www.microsoft.amch-1dnj.sbs
-this.www.microsoft.amch-1dnj.sbs
-with.this.www.microsoft.amch-1dnj.sbs
-want_to.with.this.www.microsoft.amch-1dnj.sbs
-do_yo.want_to.with.this.www.microsoft.amch-1dnj.sbs
-uk.do_yo.want_to.with.this.www.microsoft.amch-1dnj.sbs
-co.uk.do_yo.want_to.with.this.www.microsoft.amch-1dnj.sbs
-
-noise           false
-riot            true
-classification  benign
-link            https://viz.greynoise.io/riot/1.1.1.1
-last_seen       2023-07-20
-```
-</details>
-
-## ipinfo.io
-
-[:link:](sbin/ipinfo.io) __
-
 ## iptables-clear
 
 [:link:](sbin/iptables-clear) _drop all iptables chains_
@@ -867,15 +811,11 @@ bill.gates@microsoft.com
 
 ## noslep
 
-[:link:](sbin/noslep) _caffeinate -disu_
+[:link:](sbin/noslep) _prevent macOS from sleeping (display, system & user idle)_
 
 ## npmaudit
 
 [:link:](sbin/npmaudit) _auto audit the local package.json and produce 'report.html' output_
-
-## nz-companiesdirectory
-
-[:link:](sbin/nz-companiesdirectory) _search the NZ companies directory_
 
 ## onionscan
 
@@ -884,14 +824,6 @@ bill.gates@microsoft.com
 ## openh
 
 [:link:](sbin/openh) _open an fqdn in a browser_
-
-## osq-usb
-
-[:link:](sbin/osq-usb) _use osquery to return a list of attached removable usb devices_
-
-## osv
-
-[:link:](sbin/osv) _return a known OS version string_
 
 ## ouilookup
 
@@ -912,22 +844,6 @@ bill.gates@microsoft.com
 ## phishreport
 
 [:link:](sbin/phishreport) _report a URL to phish.report_
-
-## pihole-disable
-
-[:link:](sbin/pihole-disable) _disable pihole filtering_
-
-## pihole-enable
-
-[:link:](sbin/pihole-enable) _enable pihole filtering_
-
-## pihole-lastblock
-
-[:link:](sbin/pihole-lastblock) _show the last domain blocked by pihole_
-
-## pihole-stat
-
-[:link:](sbin/pihole-stat) _get basic stats of a pihole instance from the php api_
 
 ## pireq
 
@@ -995,10 +911,6 @@ applecare.vegas
 applecare.wang
 ```
 </details>
-
-## rgroups
-
-[:link:](sbin/rgroups) _return ransomwatch groups_
 
 ## searchcode
 
@@ -1079,10 +991,6 @@ https://dotco.nz/search?query=exe.png
 ## urlg
 
 [:link:](sbin/urlg) _grep for http(s) URLs_
-
-## utc
-
-[:link:](sbin/utc) _list given date as UTC time_
 
 ## validpan
 
