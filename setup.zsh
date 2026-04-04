@@ -3,7 +3,7 @@
 
 set -e #-x
 
-location=`timeout .1 git rev-parse --show-toplevel`
+location=$(git rev-parse --show-toplevel 2>/dev/null)
 
 if [[ ! "${SHELL}" =~ "zsh" ]] ; then
   echo "setup needs to be executed from within zsh"
