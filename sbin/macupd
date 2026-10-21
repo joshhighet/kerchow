@@ -10,13 +10,8 @@ update_homebrew() {
     echo "homebrew housekeeping..."
     brew update
     brew upgrade
+    brew upgrade --cask --greedy
     brew cleanup
-    brew doctor
-    outdated_casks=$(brew outdated --cask --greedy --quiet)
-    if [ -n "$outdated_casks" ]; then
-      echo "upgrading outdated casks..."
-      brew upgrade $outdated_casks
-    fi
   else
     echo "homebrew not found. skipping."
   fi
@@ -31,13 +26,35 @@ update_npm() {
   fi
 }
 
+update_uv() {
+  if command_exists uv; then
+    echo "updating uv and uv tools..."
+    uv self update
+    uv tool upgrade --all
+  fi
+}
+
+update_pipx() {
+  if command_exists pipx; then
+    echo "updating pipx packages..."
+    pipx upgrade-all
+  fi
+}
+
+update_rustup() {
+  if command_exists rustup; then
+    echo "updating rust toolchains..."
+    rustup update
+  fi
+}
+
 if [[ $(uname -s) != "Darwin" ]]; then
   echo "script is for macOS only."
   exit 1
 fi
 
 echo "updating OS..."
-softwareupdate -i -a
+sudo softwareupdate -i -a
 
 if command_exists nmap; then
   echo "updating nmap scriptdb..."
@@ -50,7 +67,14 @@ if command_exists tldr; then
 fi
 
 update_homebrew
-brew cleanup
 update_npm
+update_uv
+update_pipx
+update_rustup
+
+if command_exists brew; then
+  echo "running brew doctor..."
+  brew doctor
+fi
 
 echo "completed."
