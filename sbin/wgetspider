@@ -3,7 +3,7 @@
 user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"
 
 if [ -z "$1" ]; then
-    echo "usage: $0 <url>"
+    echo "usage: $0 <url>" >&2
     exit 1
 fi
 
@@ -13,13 +13,16 @@ else
     url="${1}"
 fi
 
-url_after_redirect=$(curl -sI "${url}" | grep -i Location | awk '{print $2}')
+# follow redirects to the effective URL; fall back to the input if the probe
+# yields nothing (the old code passed an empty string to wget on no redirect)
+final_url=$(curl -sIL -A "$user_agent" -o /dev/null -w '%{url_effective}' "$url")
+[ -z "$final_url" ] && final_url="$url"
 
 wget \
 --tries=5 --html-extension --user-agent="${user_agent}" --server-response --wait 2s \
 --random-wait --quota="2m" --passive-ftp --execute="robots = off" --no-dns-cache \
---recursive --convert-links --page-requisites --page-requisites --no-check-certificate \
+--recursive --convert-links --page-requisites --no-check-certificate \
 --max-redirect=5 --level=5 --no-parent --no-host-directories --adjust-extension \
---directory-prefix="downloaded" "${url_after_redirect}"
+--directory-prefix="downloaded" "${final_url}"
 
 echo 'finished - see ./downloaded'

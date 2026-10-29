@@ -1,11 +1,27 @@
 #!/bin/bash
-# fetch a ssh banner from a given server
+# fetch the SSH identification banner from a given server (host [port], default 22)
 
 host="${1}"
+port="${2:-22}"
 if [ -z "$host" ]; then
-    echo "usage: getshbanner <server>"
+    echo "usage: getshbanner <server> [port]" >&2
     exit 1
 fi
 
-banner=$(ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no banner@$host)
-echo "$banner" | grep -q "OpenSSH_7.1p2"
+# the SSH server sends its "SSH-2.0-..." identification string on connect (RFC 4253).
+banner=$(SB_HOST="$host" SB_PORT="$port" timeout 8 bash -c '
+    exec 3<>"/dev/tcp/${SB_HOST}/${SB_PORT}" 2>/dev/null || exit 2
+    IFS= read -r line <&3
+    printf "%s\n" "$line"
+' 2>/dev/null | tr -d '\r')
+rc=${PIPESTATUS[0]}
+
+if [ "$rc" -eq 124 ]; then
+    echo "getshbanner: ${host}:${port} timed out" >&2
+    exit 1
+elif [ "$rc" -ne 0 ] || [ -z "$banner" ]; then
+    echo "getshbanner: could not read banner from ${host}:${port}" >&2
+    exit 1
+fi
+
+echo "$banner"

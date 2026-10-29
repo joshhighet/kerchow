@@ -1,7 +1,6 @@
 #!/bin/zsh
 # enter into all folders within the current working directory - if the folder is a git repo pull the latest from remote
 
-set -e
 
 for dir in */; do
     if [[ $dir == "node/" ]]; then

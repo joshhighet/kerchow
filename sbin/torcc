@@ -2,7 +2,7 @@
 # return overview on tor bridges, exits & open relays for a given country code
 
 if [ -z "$1" ]; then
-    echo "usage: tornz <country-code>"
+    echo "usage: torcc <country-code>"
     exit 1
 fi
 

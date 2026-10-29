@@ -8,7 +8,7 @@ fi
 
 dig NS $1 +short \
 | while read -r line ; do
-  printf 'attempting zone txfr on '${1}', nameserver '${line}''
+  printf 'attempting zone txfr on %s, nameserver %s\n' "${1}" "${line}"
   dig axfr @${line} ${1} \
   | grep --invert-match \
   --regexp='; Transfer failed.' \

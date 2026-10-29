@@ -18,7 +18,8 @@ echo "${fg[green]}$banner${reset_color}"
 echo
 
 if [ -f ~/.kerchow-hosts ]; then
-    hosts=($(cat ~/.kerchow-hosts))
+    # one hostname per line, '#' comments ignored
+    hosts=(${(f)"$(grep -v '^#' ~/.kerchow-hosts)"})
 else
     error "config file missing, create ~/.kerchow-hosts with one hostname per line."
     exit 1
@@ -40,15 +41,15 @@ process_host() {
     ssh -q -t -o ConnectTimeout=2 "${host}" "${usrcommand}"
 }
 
-hosts=(all parallel "${hosts[@]}")
+menu=(all parallel "${hosts[@]}")
 
-select host in "${hosts[@]}"; do
-    if [ -n "${host}" ]; then
+select selection in "${menu[@]}"; do
+    if [ -n "${selection}" ]; then
         break
     fi
 done
 
-if [ "${host}" = "all" ] || [ "${host}" = "parallel" ]
+if [ "${selection}" = "all" ] || [ "${selection}" = "parallel" ]
 then
     if [ -z "${1}" ]
     then
@@ -57,22 +58,16 @@ then
         usrcommand="${1}"
     fi
     echo "${usrcommand}" | lolcat
-    for host in "${hosts[@]}"; do
-        if [ "${host}" = "all" ] || [ "${host}" = "parallel" ]
-        then
-            continue
-        fi
-        if [ "${select_host}" = "parallel" ]; then
-            (
-                process_host "${host}" "${usrcommand}"
-            ) &
+    for target in "${hosts[@]}"; do
+        if [ "${selection}" = "parallel" ]; then
+            ( process_host "${target}" "${usrcommand}" ) &
         else
-            process_host "${host}" "${usrcommand}"
+            process_host "${target}" "${usrcommand}"
         fi
     done
-    if [ "${select_host}" = "parallel" ]; then
+    if [ "${selection}" = "parallel" ]; then
         wait
     fi
 else
-    ssh -q -t -o ConnectTimeout=2 "${host}" "${1}"
+    ssh -q -t -o ConnectTimeout=2 "${selection}" "${1}"
 fi

@@ -6,4 +6,14 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-timeout 1 curl -s "https://ipinfo.io/${1}/json" -H "User-Agent: curl/7.54"
+out=$(curl -sS --fail-with-body --connect-timeout 5 --max-time 10 \
+    "https://ipinfo.io/${1}/json" -H "User-Agent: curl/7.54")
+rc=$?
+
+if [ $rc -ne 0 ]; then
+    echo "ipi: query failed (curl exit $rc)" >&2
+    [ -n "$out" ] && echo "$out" >&2
+    exit $rc
+fi
+
+echo "$out"

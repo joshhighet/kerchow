@@ -1,25 +1,46 @@
 #!/usr/bin/env python3
 # returns x509 data in json for a given url
 
-import sys
 import json
-import requests
+import socket
+import ssl
+import sys
+from urllib.parse import urlsplit
 
-if len(sys.argv) < 2:
-    print("usage: certinfo <url>")
-    sys.exit(1)
+TIMEOUT = 10
 
-if sys.argv[1].startswith("http"):
-    in1 = sys.argv[1]
-else:
-    in1 = "https://" + sys.argv[1]    
+def target(arg):
+    if "//" not in arg:
+        arg = "https://" + arg
+    parts = urlsplit(arg)
+    if not parts.hostname:
+        print("usage: certinfo <url>", file=sys.stderr)
+        sys.exit(1)
+    return parts.hostname, parts.port or 443
 
-with requests.get(in1, stream=True) as response:
-    certificate_info = response.raw.connection.sock.getpeercert()
-    subject = dict(x[0] for x in certificate_info['subject'])
-    issuer = dict(x[0] for x in certificate_info['issuer'])
-    subjectAltName = [x[1] for x in certificate_info['subjectAltName']]
-    certificate_info['subjectAltName'] = subjectAltName
-    certificate_info['subject'] = subject
-    certificate_info['issuer'] = issuer
+def peercert(host, port):
+    context = ssl.create_default_context()
+    with socket.create_connection((host, port), timeout=TIMEOUT) as sock:
+        with context.wrap_socket(sock, server_hostname=host) as tls:
+            return tls.getpeercert()
+
+def main():
+    if len(sys.argv) < 2:
+        print("usage: certinfo <url>", file=sys.stderr)
+        sys.exit(1)
+    host, port = target(sys.argv[1])
+    try:
+        certificate_info = peercert(host, port)
+    except ssl.SSLCertVerificationError as err:
+        print(f"certinfo: {host}:{port} failed verification - {err.verify_message}", file=sys.stderr)
+        sys.exit(1)
+    except (OSError, ssl.SSLError) as err:
+        print(f"certinfo: {host}:{port} - {err}", file=sys.stderr)
+        sys.exit(1)
+    certificate_info["subject"] = dict(x[0] for x in certificate_info.get("subject", ()))
+    certificate_info["issuer"] = dict(x[0] for x in certificate_info.get("issuer", ()))
+    certificate_info["subjectAltName"] = [x[1] for x in certificate_info.get("subjectAltName", ())]
     print(json.dumps(certificate_info, indent=4))
+
+if __name__ == "__main__":
+    main()

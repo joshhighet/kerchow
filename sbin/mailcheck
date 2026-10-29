@@ -1,33 +1,39 @@
 #!/bin/bash
 # lookup SPF, MX & DMARC records for a domain
 
-usenserv='1.1.1.1'
-
 if [ -z "$1" ]; then
-    echo "usage: mailcheck domain.tld"
+    echo "usage: mailcheck domain.tld" >&2
     exit 1
 fi
 domain=$1
-spf=$(dig @${usenserv} TXT ${domain} +short | grep -i spf)
-if [ -z "$spf" ]; then
-    echo "SPF: none"
-    HASPF=0
-else
-    echo "SPF: $spf"
-    HASPF=1
-fi
-dmarc=$(dig @${usenserv} +short TXT _dmarc.${domain} | grep 'v=DMARC1')
-if [ -z "$dmarc" ]; then
-    echo "DMARC: none"
-else
-    echo "DMARC: $dmarc"
-fi
-mx=$(dig @${usenserv} +short MX ${domain})
+
+dig_opts="+time=2 +tries=1 +short"
+# dig +short prints ";; connection timed out..." to stdout on failure, so a
+# usable answer is output with those diagnostic lines stripped.
+answer() { dig $dig_opts "$@" 2>/dev/null | grep -v '^;;'; }
+
+# pick the first resolver that actually answers (networks that block 1.1.1.1
+# otherwise make every lookup look like "no record")
+resolver=""
+for candidate in 1.1.1.1 8.8.8.8 9.9.9.9; do
+    if [ -n "$(answer @"$candidate" . NS)" ]; then
+        resolver="@$candidate"
+        break
+    fi
+done
+[ -z "$resolver" ] && echo "mailcheck: no usable resolver reachable, using system default" >&2
+
+lookup() { answer $resolver "$@"; }
+
+spf=$(lookup TXT "$domain" | grep -i 'v=spf1')
+[ -z "$spf" ] && echo "SPF: none" || echo "SPF: $spf"
+
+dmarc=$(lookup TXT "_dmarc.$domain" | grep -i 'v=DMARC1')
+[ -z "$dmarc" ] && echo "DMARC: none" || echo "DMARC: $dmarc"
+
+mx=$(lookup MX "$domain")
 if [ -z "$mx" ]; then
     echo "MX: none"
 else
-    mx=$(echo "${mx}" | sed 's/^[0-9]* //')
-    for i in ${mx}; do
-        echo "MX: ${i}"
-    done
+    echo "$mx" | sed 's/^[0-9]* //' | while read -r host; do echo "MX: $host"; done
 fi

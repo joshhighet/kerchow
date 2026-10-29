@@ -1,9 +1,14 @@
 #!/bin/bash
-# perform a dig ANY lookup using google DNS for a given domain
+# dump common DNS records for a domain (ANY is neutered by RFC 8482, so we
+# query a set of record types individually) via google DNS
 
 if [ $# -ne 1 ]; then
-    echo "usage: digall <domain>"
+    echo "usage: digall <domain>" >&2
     exit 1
 fi
 
-dig @8.8.8.8 +short ANY $1
+for rr in A AAAA NS MX TXT SOA CAA SRV; do
+    while read -r value; do
+        [ -n "$value" ] && printf '%-5s %s\n' "$rr" "$value"
+    done < <(dig +time=2 +tries=1 +short @8.8.8.8 "$1" "$rr" 2>/dev/null)
+done

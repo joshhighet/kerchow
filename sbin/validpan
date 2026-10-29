@@ -2,17 +2,22 @@
 # check if a given credit card number (var1) passes mod10 checksum
 
 if [ -z "$1" ]; then
-    echo "usage: validpan <credit-card-number>"
+    echo "usage: validpan <credit-card-number>" >&2
+    exit 1
+fi
+
+if ! [[ "$1" =~ ^[0-9]+$ ]]; then
+    echo "validpan: input must be digits only" >&2
     exit 1
 fi
 
 pan=$1
 panlen=${#pan}
+sum=0
 
 for i in $(seq $((panlen - 1)) -1 0); do
   digit=${pan:$i:1}
   if [ $(((panlen-i) % 2)) -eq 0 ]; then
-     #even
      ((digit*=2))
      [ ${#digit} -eq 2 ] && digit=$((${digit:0:1}+${digit:1:1}))
   fi

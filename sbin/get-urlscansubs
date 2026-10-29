@@ -1,49 +1,59 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["requests"]
+# ///
 # build datasets of active url's from urlscan
 
-import requests
+import argparse
 import json
-import argparse
-import sys
-import argparse
 import logging
+import sys
+
+import requests
 
 logging.basicConfig(level=logging.INFO)
-argparser = argparse.ArgumentParser()
-argparser.add_argument('--api', help='urlscan.io key')
-args = argparser.parse_args()
 
-if args.api is None:
-    logging.warning("no api key supplied with --api, once we are rate limited i will die")
-    headers = {}
-else:
-    headers = {'API-Key': args.api}
 
-urldata = requests.get('https://urlscan.io/api/v1/search/?q=*', headers=headers)
-if urldata.status_code != 200:
-    print("error: {} {}".format(urldata.status_code, urldata.reason))
-    sys.exit(1)
-else:
-    with open('urlscan-submissions.json', 'w') as f:
-        f.write(json.dumps(urldata.json(), indent=4))
-        f.close()
-        logging.info("saved urlscan-submissions.json")
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--api", help="urlscan.io key")
+    args = parser.parse_args()
 
-with open('urlscan-results.json', 'w') as f:
-    f.write(json.dumps([], indent=4))
-    f.close()
+    if args.api is None:
+        logging.warning("no api key supplied with --api, expect rate limiting")
+        headers = {}
+    else:
+        headers = {"API-Key": args.api}
 
-for entry in urldata.json()['results']:
-    with open('urlscan-results.json', 'r') as f:
-        records = json.loads(f.read())
-        f.close()
-    logging.info("working on: {}".format(entry['page']['url']))
-    submitted_url = entry['page']['url']
-    scan_results = requests.get('https://urlscan.io/api/v1/result/{}'.format(entry['_id']), headers=headers)
-    if scan_results.status_code != 200:
-        print("error: {} {}".format(scan_results.status_code, scan_results.reason))
+    search = requests.get("https://urlscan.io/api/v1/search/?q=*", headers=headers)
+    if search.status_code != 200:
+        logging.error("search failed: %s %s", search.status_code, search.reason)
         sys.exit(1)
-    with open('urlscan-results.json', 'w') as f:
-        records.append({'url': submitted_url, 'verdict': scan_results.json()['verdicts']['overall'], 'date': entry['task']['time']})
-        f.write(json.dumps(records, indent=4))
-        f.close()
+
+    with open("urlscan-submissions.json", "w") as handle:
+        json.dump(search.json(), handle, indent=4)
+    logging.info("saved urlscan-submissions.json")
+
+    records = []
+    for entry in search.json()["results"]:
+        submitted_url = entry["page"]["url"]
+        logging.info("working on: %s", submitted_url)
+        result = requests.get(
+            "https://urlscan.io/api/v1/result/{}".format(entry["_id"]),
+            headers=headers,
+        )
+        if result.status_code != 200:
+            logging.error("result failed: %s %s", result.status_code, result.reason)
+            sys.exit(1)
+        records.append({
+            "url": submitted_url,
+            "verdict": result.json()["verdicts"]["overall"],
+            "date": entry["task"]["time"],
+        })
+        with open("urlscan-results.json", "w") as handle:
+            json.dump(records, handle, indent=4)
+
+
+if __name__ == "__main__":
+    main()

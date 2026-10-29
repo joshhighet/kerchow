@@ -1,4 +1,4 @@
 #!/bin/bash
 # shodan your current egress address
 
-shodan host `curl -s ipinfo.io/ip -H "User-Agent: curl/7.54"`
+shodan host `curl -s https://ipinfo.io/ip -H "User-Agent: curl/7.54"`
