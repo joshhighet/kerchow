@@ -182,7 +182,7 @@ Set-Cookie: _session_={xxx}; path=/; domain=ciadotgov4sjwlzihbbgxnqg3xiyrg7so2r2
 
 ## digall
 
-[:link:](sbin/digall) _perform a dig ANY lookup using google DNS for a given domain_
+[:link:](sbin/digall) _dump common DNS records for a domain (ANY is neutered by RFC 8482, so we_
 
 <details><summary>example:</summary>
 
@@ -334,7 +334,7 @@ crc32    | 66b11e8a
 
 ## get-urlscansubs
 
-[:link:](sbin/get-urlscansubs) _build datasets of active url's from urlscan_
+[:link:](sbin/get-urlscansubs) _/// script_
 
 <details><summary>example:</summary>
 
@@ -348,7 +348,7 @@ INFO:root:working on: https://status.solidvpn.org/
 
 ## getfavicon
 
-[:link:](sbin/getfavicon) _get favicon data; hash (md5 & mmh3), full path location, external search urls (shodan, censys, binaryedge, zoomeye, fofa)_
+[:link:](sbin/getfavicon) _/// script_
 
 <details><summary>example:</summary>
 
@@ -384,7 +384,7 @@ ba8f4151-ab0e-4da6-862d-68b05906e887
 
 ## getshbanner
 
-[:link:](sbin/getshbanner) _fetch a ssh banner from a given server_
+[:link:](sbin/getshbanner) _fetch the SSH identification banner from a given server (host [port], default 22)_
 
 <details><summary>example:</summary>
 
@@ -402,7 +402,7 @@ ba8f4151-ab0e-4da6-862d-68b05906e887
 
 ## getsitetitle
 
-[:link:](sbin/getsitetitle) _return the title of a site from the html_
+[:link:](sbin/getsitetitle) _return the title of a site from html on stdin_
 
 <details><summary>example:</summary>
 
@@ -876,39 +876,6 @@ bill.gates@microsoft.com
 < Location: http://www.google.com/images
 < Location: http://www.google.com/imghp
 < Location: https://www.google.com/imghp?gws_rd=ssl
-```
-</details>
-
-## reversewhois
-
-[:link:](sbin/reversewhois) _perform reverse whois lookup using the viewdns.info api_
-
-<details><summary>example:</summary>
-
-```
-➜  labs reversewhois domains@apple.com
-applecare.pro
-applecare.promo
-applecare.qpon
-applecare.quebec
-applecare.rent
-applecare.review
-applecare.services
-applecare.site
-applecare.soy
-applecare.space
-applecare.store
-applecare.study
-applecare.sucks
-applecare.sydney
-applecare.taipei
-applecare.tech
-applecare.tel
-applecare.tokyo
-applecare.university
-applecare.us
-applecare.vegas
-applecare.wang
 ```
 </details>
 
