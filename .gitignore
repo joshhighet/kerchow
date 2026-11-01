@@ -7,3 +7,4 @@ sbin/urlscan-*.json
 get365tenants/fetch
 sbin/matrix
 outputs/**
+/sbin/__pycache__
